@@ -1,0 +1,17 @@
+{
+    "files.exclude": {
+        ".vscode/": true,
+        ".gradle/": true,
+        "gradle/": true,
+        ".idea": true,
+        ".gitignore": true,
+        "*gradle*": true,
+        "local.properties": true,
+
+        "app/.gitignore": true,
+        "app/build.gradle": true,
+        "app/proguard-rules.pro": true,
+
+        "app/src/main/res/": true
+    }
+}

@@ -1,0 +1,52 @@
+class FlashCard {
+  String question;
+  String answer;
+  String hint;
+  String[] wrongAnswers;
+  
+  public FlashCard FlashCard(String q, String a) {}
+  public FlashCard FlashCard(String q, String a, String h) {}
+  public FlashCard FlashCard(String q, String a, String[] w) {}
+  public FlashCard FlashCard(String q, String a, String h, String[] w) {}
+  public FlashCard FlashCard(File f) {}
+  
+  public File export() {}
+}
+
+class Quiz {
+  String name;
+  int numQuestionsToShow;
+  1 <@>- * FlashCard;
+  
+  public Quiz Quiz(FlashCard[] list) {}
+  public Quiz Quiz(int n, FlashCard[] list) {}
+  public Quiz Quiz(File f) {}
+  
+  public File export() {}
+}
+
+class Tag {
+  String name;
+  
+  * <@>- * FlashCard;
+}//$?[End_of_model]$?
+
+namespace -;
+
+
+class FlashCard
+{
+  position 302 315 280 163;
+}
+
+class Quiz
+{
+  position 298 47 109 163;
+  position.association FlashCard__Quiz 66,134 69,0;
+}
+
+class Tag
+{
+  position 572 165 112 78;
+  position.association FlashCard__Tag 9,78 280,0;
+}

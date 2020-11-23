@@ -1,3 +1,5 @@
+package com.aceteam.aceitflashcards;
+
 import java.util.Set;
 
 /**

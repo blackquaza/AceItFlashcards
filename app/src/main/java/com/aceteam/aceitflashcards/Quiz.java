@@ -58,7 +58,7 @@ public class Quiz
    */
   public Quiz(String aName, Set<FlashCard> aFlashCards)
   {
-    Quiz(aName, aFlashCards.size(), aFlashCards);
+    new Quiz(aName, aFlashCards.size(), aFlashCards);
   }
 
   /** 
@@ -71,7 +71,7 @@ public class Quiz
   public Quiz(String aName, Tag aTag)
   {
     Set<FlashCard> aFlashCards = new HashSet<FlashCard>(aTag.getFlashCards());
-    Quiz(aName, aFlashCards.size(), aFlashCards);
+    new Quiz(aName, aFlashCards.size(), aFlashCards);
   }
 
   /** 
@@ -81,7 +81,7 @@ public class Quiz
    */
   public Quiz(String aName)
   {
-    Quiz(aName, 0, new HashSet<FlashCard>());
+    new Quiz (aName, 0, new HashSet<FlashCard>());
   }
 
   /**

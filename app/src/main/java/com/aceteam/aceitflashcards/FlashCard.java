@@ -1,7 +1,12 @@
 package com.aceteam.aceitflashcards;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.Set;
 import java.io.File;
+import java.util.HashSet;
+import java.util.Collections;
+import java.util.Iterator;
 
 /**
  * This class represents a flashcard. It contains a question and an answer, and may contain
@@ -19,10 +24,11 @@ public class FlashCard
   private String question;
   private String answer;
   private String hint;
-  //aa d
   private Set<String> wrongAnswers;
   private Set<Tag> tags;
+  private int aTextId;
   private Set<Quiz> quizzes;
+  private Object FileOutputStream;
 
   //------------------------
   // CONSTRUCTORS
@@ -40,14 +46,17 @@ public class FlashCard
    * 
    * @see Tag
    */
-  public FlashCard(String aQuestion, String aAnswer, String aHint, Set<String> aWrongAnswers, Set<Tag> aTags)
+  public FlashCard(String aQuestion, String aAnswer, String aHint, Set<String> aWrongAnswers, Set<Tag> aTags, int textId)
   {
     question = aQuestion;
     answer = aAnswer;
     hint = aHint;
     wrongAnswers = aWrongAnswers;
     tags = aTags;
-    quizzes = new HashSet<Quiz>();
+    for (Quiz quiz : quizzes = new HashSet<>()) {
+
+    }
+    aTextId = textId;
   }
 
   /**
@@ -57,7 +66,8 @@ public class FlashCard
    * @param aAnswer A String with the answer to show on the FlashCard.
    */
   public FlashCard(String aQuestion, String aAnswer){
-    FlashCard(aQuestion, aAnswer, "", new HashSet<String>(), new HashSet<Tag>());
+    FlashCard = new FlashCard(aQuestion, aAnswer, new HashSet<Quiz>(), new HashSet<Tag>());
+
   }
 
   /**
@@ -65,7 +75,7 @@ public class FlashCard
    * 
    * @param aQuestion A String with the question to show on the FlashCard.
    * @param aAnswer A String with the answer to show on the FlashCard.
-   * @param aHint A String with the hint to show (if requested).
+   * @param aHint A String with the hint to show (if requested).**NEED TO FINISH
    */
   public FlashCard(String aQuestion, String aAnswer, String aHint){
     FlashCard(aQuestion, aAnswer, aHint, new HashSet<String>(), new HashSet<Tag>());
@@ -78,10 +88,10 @@ public class FlashCard
    * @param aAnswer A String with the answer to show on the FlashCard.
    * @param aHint A String with the hint to show (if requested).
    * @param aWrongAnswers A List of Strings containing wrong answers. This is to provide
-   * alternative answers when creating a Quiz.
+   * alternative answers when creating a Quiz.  **NEED TO FINISH
    */
   public FlashCard(String aQuestion, String aAnswer, String aHint, Set<String> aWrongAnswers){
-    FlashCard(aQuestion, aAnswer, aHint, aWrongAnswers, new HashSet<Tag>());
+    new FlashCard(aQuestion, aAnswer, aHint, aWrongAnswers, new HashSet<Tag>());
   }
 
   /**
@@ -91,6 +101,11 @@ public class FlashCard
    */
   public FlashCard(File file){
     // TODO: Code this.
+    FileInputStream
+  }
+
+  public FlashCard(String aQuestion, String aAnswer, String aHint, Set<String> aWrongAnswers, HashSet<Tag> tags) {
+
   }
 
   //------------------------
@@ -106,10 +121,12 @@ public class FlashCard
    */
   public boolean setQuestion(String aQuestion)
   {
-    boolean wasSet = false;
-    question = aQuestion;
-    wasSet = true;
-    return wasSet;
+    boolean wasSet;
+     if(question = aQuestion) {
+       wasSet=true;
+     }
+     else {wasSet = false;}
+     return wasSet;
   }
 
   /**
@@ -121,10 +138,18 @@ public class FlashCard
    */
   public boolean setAnswer(String aAnswer)
   {
-    boolean wasSet = false;
-    answer = aAnswer;
-    wasSet = true;
+    boolean wasSet;
+    wasSet = answer = aAnswer;
     return wasSet;
+  }
+  public String isAnswer() {
+    return answer;
+  }
+  public void setTextId(int textId){
+    aTextId = textId;
+  }
+  public int getTextId() {
+    return aTextId;
   }
 
   /**
@@ -136,10 +161,12 @@ public class FlashCard
    */
   public boolean setHint(String aHint)
   {
-    boolean wasSet = false;
-    hint = aHint;
+    boolean wasSet;
     wasSet = true;
-    return wasSet;
+    if (hint != aHint) return false;
+    else {
+      return wasSet;
+      }
   }
 
   /**
@@ -151,8 +178,8 @@ public class FlashCard
    */
   public boolean addWrongAnswer(String aWrongAnswer)
   {
-    boolean wasAdded = false;
-    wasAdded = wrongAnswers.add(aWrongAnswer);
+    boolean wasAdded;
+    wasAdded = wasAdded = wrongAnswers.add(aWrongAnswer);
     return wasAdded;
   }
 
@@ -165,8 +192,8 @@ public class FlashCard
    */
   public boolean removeWrongAnswer(String aWrongAnswer)
   {
-    boolean wasRemoved = false;
-    wasRemoved = wrongAnswers.remove(aWrongAnswer);
+    boolean wasRemoved;
+    wasRemoved = wasRemoved = wrongAnswers.remove(aWrongAnswer);
     return wasRemoved;
   }
 
@@ -207,7 +234,7 @@ public class FlashCard
    */
   public Set<String> getWrongAnswers()
   {
-    Set<Tag> newWrongAnswers = Collections.unmodifiableSet(wrongAnswers);
+    Set<String> newWrongAnswers = Collections.unmodifiableSet(wrongAnswers);
     return newWrongAnswers;
   }
 
@@ -229,7 +256,8 @@ public class FlashCard
    */
   public boolean hasWrongAnswers()
   {
-    boolean has = wrongAnswers.size() > 0;
+    boolean has;
+    if (has = wrongAnswers.size() > 0) {has = true;}
     return has;
   }
 
@@ -461,6 +489,7 @@ public class FlashCard
    */
   public File export(){
     // TODO: Code this.
+    return (File) FileOutputStream;
   }
 
   /**
@@ -472,6 +501,8 @@ public class FlashCard
     return super.toString() + "["+
             "question" + ":" + getQuestion()+ "," +
             "answer" + ":" + getAnswer()+ "," +
+            "See all the tags" + ":" + getTags()+ "," + getTextId() + "," +
+            "Open Quizzes" + ":" + getQuizzes() + "," +
             "hint" + ":" + getHint()+ "]";
   }
 }

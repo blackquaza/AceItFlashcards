@@ -301,7 +301,7 @@ public class Quiz
     JSONObject jsonObject = new JSONObject();
     jsonObject.put("name", name);
     jsonObject.put("numQuestionsToShow", numQuestionsToShow);
-    jsonObject.put("flashcards", flashcards);
+    jsonObject.put("flashcards", flashCards);
     return jsonObject;
 
   }

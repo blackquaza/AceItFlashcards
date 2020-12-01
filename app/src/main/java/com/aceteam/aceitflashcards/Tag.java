@@ -1,5 +1,9 @@
 package com.aceteam.aceitflashcards;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -48,7 +52,7 @@ public class Tag
    * @see FlashCard
    */
   public Tag(String aName, FlashCard flashCard) {
-    Tag(aName, new HashSet<FlashCard>(flashCard));
+    this(aName, new HashSet<>(Arrays.asList(flashCard)));
   }
 
   /**
@@ -57,7 +61,7 @@ public class Tag
    * @param aName The name of the Tag.
    */
   public Tag(String aName){
-    Tag(aName, new HashSet<FlashCard>());
+    this(aName, new HashSet<FlashCard>());
   }
 
   //------------------------
@@ -217,6 +221,6 @@ public class Tag
       return false;
     }
     Tag t = (Tag) obj;
-    return t.getName.equalsIgnoreCase(name);
+    return t.getName().equalsIgnoreCase(name);
   }
 }

@@ -285,19 +285,55 @@ public class Quiz
   public void export()  {
     // TODO: Code this.
 
-    //Get Quiz as Json
+    //Get curret directory
+    PackageManager m = getPackageManager();
+    String s = getPackageName();
+    PackageInfo p = m.getPackageInfo(s, 0);
+    s = p.applicationInfo.dataDir;
+
+
     try {
-      String quiz = getJson().toString();
-    } catch (JSONException e) {
-      e.printStackTrace();
-    }
-    //Write to File
+      FileOutputStream fileOut = new FileOutputStream(s + "/quiz.ser");
+      ObjectOutputStream out = new ObjectOutputStream(fileOut);
+      out.writeObject(this);
+      out.close();
+      fileOut.close();
+   } catch (IOException i) {
+      i.printStackTrace();
+   }
 
 
   }
 
-  public JSONObject getJson() throws JSONException {
+  public void import()
+  {
+    //get current app directory
+    PackageManager m = getPackageManager();
+    String s = getPackageName();
+    PackageInfo p = m.getPackageInfo(s, 0);
+    s = p.applicationInfo.dataDir;
 
+    //import file
+    try {
+      FileInputStream fileIn = new FileInputStream( s + "/quiz.ser");
+      ObjectInputStream in = new ObjectInputStream(fileIn);
+      this = (Quiz) in.readObject();
+      in.close();
+      fileIn.close();
+   } catch (IOException i) {
+      i.printStackTrace();
+      return;
+   } catch (ClassNotFoundException c) {
+      System.out.println("Quiz class not found");
+      c.printStackTrace();
+      return;
+   }
+
+  }
+
+
+ /*
+  public JSONObject getJson() throws JSONException {
     JSONObject jsonObject = new JSONObject();
     jsonObject.put("name", name);
     jsonObject.put("numQuestionsToShow", numQuestionsToShow);
@@ -305,7 +341,7 @@ public class Quiz
     return jsonObject;
 
   }
-
+*/
     /**
      * Returns a text representation of the Quiz.
      * @return A String representing the Quiz.

@@ -482,6 +482,51 @@ public class FlashCard
     // TODO: Code this.
     File outputStream = (File) FileOutputStream;
     return outputStream;
+
+
+    //Get current app directory
+    PackageManager m = getPackageManager();
+    String s = getPackageName();
+    PackageInfo p = m.getPackageInfo(s, 0);
+    s = p.applicationInfo.dataDir;
+
+    //Export file
+    try {
+      FileOutputStream fileOut = new FileOutputStream(s + "/flash.ser");
+      ObjectOutputStream out = new ObjectOutputStream(fileOut);
+      out.writeObject(this);
+      out.close();
+      fileOut.close();
+   } catch (IOException i) {
+      i.printStackTrace();
+   }
+  }
+
+
+  public void import()
+  {
+    //get current app directory
+    PackageManager m = getPackageManager();
+    String s = getPackageName();
+    PackageInfo p = m.getPackageInfo(s, 0);
+    s = p.applicationInfo.dataDir;
+
+    //import file
+    try {
+      FileInputStream fileIn = new FileInputStream( s + "/Flash.ser");
+      ObjectInputStream in = new ObjectInputStream(fileIn);
+      this = (Flashcard) in.readObject();
+      in.close();
+      fileIn.close();
+   } catch (IOException i) {
+      i.printStackTrace();
+      return;
+   } catch (ClassNotFoundException c) {
+      System.out.println("Flashcard class not found");
+      c.printStackTrace();
+      return;
+   }
+
   }
 
   /**

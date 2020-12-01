@@ -480,7 +480,8 @@ public class FlashCard
    */
   public File export(){
     // TODO: Code this.
-    return (File) FileOutputStream;
+    File outputStream = (File) FileOutputStream;
+    return outputStream;
   }
 
   /**

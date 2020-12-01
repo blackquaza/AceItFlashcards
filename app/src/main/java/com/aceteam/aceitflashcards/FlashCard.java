@@ -439,7 +439,7 @@ public class FlashCard
    * @see Quiz
    * @return
    */
-  public boolean removeQuiz(Tag aQuiz)
+  public boolean removeQuiz(Quiz aQuiz)
   {
     if (!quizzes.contains(aQuiz)) { return false; }
 

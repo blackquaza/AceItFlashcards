@@ -291,9 +291,8 @@ public class Quiz
     } catch (JSONException e) {
       e.printStackTrace();
     }
-
     //Write to File
-    
+
 
   }
 

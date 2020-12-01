@@ -302,7 +302,6 @@ public class Quiz
       i.printStackTrace();
    }
 
-
   }
 
   public void import()
@@ -314,10 +313,11 @@ public class Quiz
     s = p.applicationInfo.dataDir;
 
     //import file
+    Quiz q = null;
     try {
       FileInputStream fileIn = new FileInputStream( s + "/quiz.ser");
       ObjectInputStream in = new ObjectInputStream(fileIn);
-      this = (Quiz) in.readObject();
+      q = (Quiz) in.readObject();
       in.close();
       fileIn.close();
    } catch (IOException i) {
@@ -328,7 +328,6 @@ public class Quiz
       c.printStackTrace();
       return;
    }
-
   }
 
 

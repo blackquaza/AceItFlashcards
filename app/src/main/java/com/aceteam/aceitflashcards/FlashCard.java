@@ -512,10 +512,11 @@ public class FlashCard
     s = p.applicationInfo.dataDir;
 
     //import file
+    FlashCard F = null;
     try {
       FileInputStream fileIn = new FileInputStream( s + "/Flash.ser");
       ObjectInputStream in = new ObjectInputStream(fileIn);
-      this = (Flashcard) in.readObject();
+      F = (Flashcard) in.readObject();
       in.close();
       fileIn.close();
    } catch (IOException i) {

@@ -1,7 +1,5 @@
 package com.aceteam.aceitflashcards;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.util.Set;
 import java.io.File;
 import java.util.HashSet;
@@ -16,6 +14,8 @@ import java.util.Iterator;
  */
 public class FlashCard
 {
+  private Object flashCard = new Object();
+
 
   //------------------------
   // MEMBER VARIABLES
@@ -28,8 +28,10 @@ public class FlashCard
   private Set<Tag> tags;
   private int aTextId;
   private Set<Quiz> quizzes;
-  private Object FileOutputStream;
+  private final Object FileOutputStream;{FileOutputStream = null;}
 
+
+  protected Object FileInputStream; {FileInputStream = null;}
   //------------------------
   // CONSTRUCTORS
   //------------------------
@@ -53,33 +55,16 @@ public class FlashCard
     hint = aHint;
     wrongAnswers = aWrongAnswers;
     tags = aTags;
-    for (Quiz quiz : quizzes = new HashSet<>()) {
-
-    }
+    quizzes = new HashSet<>();
     aTextId = textId;
+    flashCard = null;
   }
 
   /**
-   * A constructor for the FlashCard class.
-   * 
-   * @param aQuestion A String with the question to show on the FlashCard.
-   * @param aAnswer A String with the answer to show on the FlashCard.
-   */
-  public FlashCard(String aQuestion, String aAnswer){
-    FlashCard = new FlashCard(aQuestion, aAnswer, new HashSet<Quiz>(), new HashSet<Tag>());
 
-  }
 
   /**
-   * A constructor for the FlashCard class.
-   * 
-   * @param aQuestion A String with the question to show on the FlashCard.
-   * @param aAnswer A String with the answer to show on the FlashCard.
-   * @param aHint A String with the hint to show (if requested).**NEED TO FINISH
-   */
-  public FlashCard(String aQuestion, String aAnswer, String aHint){
-    FlashCard(aQuestion, aAnswer, aHint, new HashSet<String>(), new HashSet<Tag>());
-  }
+
   
   /**
    * A constructor for the FlashCard class.
@@ -96,12 +81,15 @@ public class FlashCard
 
   /**
    * A constructor for the FlashCard class that imports information from a previously exported file.
-   * 
-   * @param file The file that contains the FlashCard information.
+   *  @param file The file that contains the FlashCard information.
+   * @param flashCard
+   * @param fileInputStream
    */
-  public FlashCard(File file){
-    // TODO: Code this.
-    FileInputStream
+  public FlashCard(File file, Object flashCard, Object fileInputStream){
+    this.flashCard = flashCard;
+
+    FileInputStream = fileInputStream;
+    //TODO: Code this.
   }
 
   public FlashCard(String aQuestion, String aAnswer, String aHint, Set<String> aWrongAnswers, HashSet<Tag> tags) {
@@ -122,10 +110,12 @@ public class FlashCard
   public boolean setQuestion(String aQuestion)
   {
     boolean wasSet;
-     if(question = aQuestion) {
-       wasSet=true;
+     if(question.equals(aQuestion)) {
+       wasSet = true;
      }
-     else {wasSet = false;}
+     else {
+       wasSet = false;
+     }
      return wasSet;
   }
 
@@ -139,7 +129,8 @@ public class FlashCard
   public boolean setAnswer(String aAnswer)
   {
     boolean wasSet;
-    wasSet = answer = aAnswer;
+    if (answer == aAnswer) {wasSet = true;}
+    else {wasSet = false;}
     return wasSet;
   }
   public String isAnswer() {
@@ -162,11 +153,10 @@ public class FlashCard
   public boolean setHint(String aHint)
   {
     boolean wasSet;
-    wasSet = true;
-    if (hint != aHint) return false;
-    else {
-      return wasSet;
-      }
+    if (hint != aHint) {
+      return false;
+    }
+    return true;
   }
 
   /**
@@ -179,7 +169,7 @@ public class FlashCard
   public boolean addWrongAnswer(String aWrongAnswer)
   {
     boolean wasAdded;
-    wasAdded = wasAdded = wrongAnswers.add(aWrongAnswer);
+    wasAdded = wrongAnswers.add(aWrongAnswer);
     return wasAdded;
   }
 
@@ -193,7 +183,7 @@ public class FlashCard
   public boolean removeWrongAnswer(String aWrongAnswer)
   {
     boolean wasRemoved;
-    wasRemoved = wasRemoved = wrongAnswers.remove(aWrongAnswer);
+    wasRemoved = wrongAnswers.remove(aWrongAnswer);
     return wasRemoved;
   }
 
@@ -257,7 +247,9 @@ public class FlashCard
   public boolean hasWrongAnswers()
   {
     boolean has;
-    if (has = wrongAnswers.size() > 0) {has = true;}
+    if (has = wrongAnswers.size() > 0) {
+      has = true;
+    }
     return has;
   }
 
@@ -443,10 +435,9 @@ public class FlashCard
    * Removes a Quiz from the FlashCard.
    * 
    * @param aQuiz The Quiz to remove from the FlashCard.
-   * 
-   * @return True of the Quiz was removed successfully. False otherwise.
-   * 
+   *
    * @see Quiz
+   * @return
    */
   public boolean removeQuiz(Tag aQuiz)
   {
@@ -504,5 +495,10 @@ public class FlashCard
             "See all the tags" + ":" + getTags()+ "," + getTextId() + "," +
             "Open Quizzes" + ":" + getQuizzes() + "," +
             "hint" + ":" + getHint()+ "]";
+  }
+
+  public Object getFileInputStream() {
+
+    return FileInputStream;
   }
 }

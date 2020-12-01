@@ -1,5 +1,8 @@
 package com.aceteam.aceitflashcards;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -277,17 +280,37 @@ public class Quiz
 
   /**
    * Exports the Quiz to a File.
-   * 
-   * @return a File object with the exported Quiz.
+   *
    */
-  public File export(){
+  public void export()  {
     // TODO: Code this.
+
+    //Get Quiz as Json
+    try {
+      String quiz = getJson().toString();
+    } catch (JSONException e) {
+      e.printStackTrace();
+    }
+
+    //Write to File
+    
+
   }
 
-  /**
-   * Returns a text representation of the Quiz.
-   * @return A String representing the Quiz.
-   */
+  public JSONObject getJson() throws JSONException {
+
+    JSONObject jsonObject = new JSONObject();
+    jsonObject.put("name", name);
+    jsonObject.put("numQuestionsToShow", numQuestionsToShow);
+    jsonObject.put("flashcards", flashcards);
+    return jsonObject;
+
+  }
+
+    /**
+     * Returns a text representation of the Quiz.
+     * @return A String representing the Quiz.
+     */
   public String toString()
   {
     String s = super.toString() + "["+

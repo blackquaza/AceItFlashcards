@@ -1,5 +1,12 @@
 package com.aceteam.aceitflashcards;
 
+import android.content.pm.PackageManager;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Set;
 import java.io.File;
 import java.util.HashSet;
@@ -475,24 +482,18 @@ public class FlashCard
 
   /**
    * Exports the FlashCard to a File.
-   * 
-   * @return a File object with the exported FlashCard.
+   *
    */
-  public File export(){
+  public void export() throws PackageManager.NameNotFoundException {
     // TODO: Code this.
+    /*
     File outputStream = (File) FileOutputStream;
     return outputStream;
-
-
-    //Get current app directory
-    PackageManager m = getPackageManager();
-    String s = getPackageName();
-    PackageInfo p = m.getPackageInfo(s, 0);
-    s = p.applicationInfo.dataDir;
+*/
 
     //Export file
     try {
-      FileOutputStream fileOut = new FileOutputStream(s + "/flash.ser");
+      java.io.FileOutputStream fileOut = new FileOutputStream( "/data/data/com.aceteam.aceitflashcards/files/Flash.ser");
       ObjectOutputStream out = new ObjectOutputStream(fileOut);
       out.writeObject(this);
       out.close();
@@ -503,20 +504,14 @@ public class FlashCard
   }
 
 
-  public void import()
+  public void Import()
   {
-    //get current app directory
-    PackageManager m = getPackageManager();
-    String s = getPackageName();
-    PackageInfo p = m.getPackageInfo(s, 0);
-    s = p.applicationInfo.dataDir;
-
     //import file
     FlashCard F = null;
     try {
-      FileInputStream fileIn = new FileInputStream( s + "/Flash.ser");
+      java.io.FileInputStream fileIn = new FileInputStream( "/data/data/com.aceteam.aceitflashcards/files/Flash.ser");
       ObjectInputStream in = new ObjectInputStream(fileIn);
-      F = (Flashcard) in.readObject();
+      F = (FlashCard) in.readObject();
       in.close();
       fileIn.close();
    } catch (IOException i) {
@@ -527,7 +522,6 @@ public class FlashCard
       c.printStackTrace();
       return;
    }
-
   }
 
   /**

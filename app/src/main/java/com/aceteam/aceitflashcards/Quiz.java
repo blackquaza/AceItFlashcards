@@ -3,6 +3,11 @@ package com.aceteam.aceitflashcards;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -285,15 +290,11 @@ public class Quiz
   public void export()  {
     // TODO: Code this.
 
-    //Get curret directory
-    PackageManager m = getPackageManager();
-    String s = getPackageName();
-    PackageInfo p = m.getPackageInfo(s, 0);
-    s = p.applicationInfo.dataDir;
+
 
 
     try {
-      FileOutputStream fileOut = new FileOutputStream(s + "/quiz.ser");
+      FileOutputStream fileOut = new FileOutputStream("/data/data/com.aceteam.aceitflashcards/files/Quiz.ser");
       ObjectOutputStream out = new ObjectOutputStream(fileOut);
       out.writeObject(this);
       out.close();
@@ -304,19 +305,13 @@ public class Quiz
 
   }
 
-  public void import()
+  public void Import()
   {
-    //get current app directory
-    PackageManager m = getPackageManager();
-    String s = getPackageName();
-    PackageInfo p = m.getPackageInfo(s, 0);
-    s = p.applicationInfo.dataDir;
 
-    
     //import file
     Quiz q = null;
     try {
-      FileInputStream fileIn = new FileInputStream( s + "/quiz.ser");
+      FileInputStream fileIn = new FileInputStream( "/data/data/com.aceteam.aceitflashcards/files/Quiz.ser");
       ObjectInputStream in = new ObjectInputStream(fileIn);
       q = (Quiz) in.readObject();
       in.close();

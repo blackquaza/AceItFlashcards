@@ -12,6 +12,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -24,7 +25,7 @@ import java.io.File;
  * 
  * @see FlashCard
  */
-public class Quiz
+public class Quiz implements Serializable
 {
 
   //------------------------
@@ -292,19 +293,12 @@ public class Quiz
    *
    */
 
-  /*
-  public void export()  {
+
+  public void exportQuiz()  {
     // TODO: Code this.
 
-    //Get current directory
-    PackageManager m = Context.getPackageManager();
-    String s = getPackageName();
-    PackageInfo p = m.getPackageInfo(s, 0);
-    s = p.applicationInfo.dataDir;
-
-
     try {
-      FileOutputStream fileOut = new FileOutputStream(s + "/quiz.ser");
+      FileOutputStream fileOut = new FileOutputStream("/data/data/com.aceteam.aceitflashcards/files/quiz.ser");
       ObjectOutputStream out = new ObjectOutputStream(fileOut);
       out.writeObject(this);
       out.close();
@@ -312,21 +306,13 @@ public class Quiz
    } catch (IOException i) {
       i.printStackTrace();
    }
-
   }
 
-  public static Quiz import()
+  public static Quiz importQuiz()
   {
-    //get current app directory
-    PackageManager m = getPackageManager();
-    String s = getPackageName();
-    PackageInfo p = m.getPackageInfo(s, 0);
-    s = p.applicationInfo.dataDir;
-
-    //import file
     Quiz q = null;
     try {
-      FileInputStream fileIn = new FileInputStream( s + "/quiz.ser");
+      FileInputStream fileIn = new FileInputStream("/data/data/com.aceteam.aceitflashcards/files/quiz.ser");
       ObjectInputStream in = new ObjectInputStream(fileIn);
       q = (Quiz) in.readObject();
       in.close();
@@ -341,20 +327,6 @@ public class Quiz
       return null;
    }
   }
-
-
-   */
-
- /*
-  public JSONObject getJson() throws JSONException {
-    JSONObject jsonObject = new JSONObject();
-    jsonObject.put("name", name);
-    jsonObject.put("numQuestionsToShow", numQuestionsToShow);
-    jsonObject.put("flashcards", flashCards);
-    return jsonObject;
-
-  }
-*/
     /**
      * Returns a text representation of the Quiz.
      * @return A String representing the Quiz.

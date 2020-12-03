@@ -289,14 +289,10 @@ public class Quiz implements Serializable
   }
 
   /**
-   * Exports the Quiz to a File.
+   * Exports the Quiz to a file.
    *
    */
-
-
   public void exportQuiz()  {
-    // TODO: Code this.
-
     try {
       FileOutputStream fileOut = new FileOutputStream("/data/data/com.aceteam.aceitflashcards/files/quiz.ser");
       ObjectOutputStream out = new ObjectOutputStream(fileOut);
@@ -307,7 +303,10 @@ public class Quiz implements Serializable
       i.printStackTrace();
    }
   }
-
+  /**
+   * Imports a new Quiz from a file.
+   * @return a Quiz.
+   */
   public static Quiz importQuiz()
   {
     Quiz q = null;

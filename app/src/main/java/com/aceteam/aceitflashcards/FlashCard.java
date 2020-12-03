@@ -478,6 +478,8 @@ public class FlashCard
    * 
    * @return a File object with the exported FlashCard.
    */
+
+  /*
   public File export(){
     // TODO: Code this.
     File outputStream = (File) FileOutputStream;
@@ -529,6 +531,8 @@ public class FlashCard
    }
 
   }
+
+   */
 
   /**
    * Returns a text representation of the FlashCard.

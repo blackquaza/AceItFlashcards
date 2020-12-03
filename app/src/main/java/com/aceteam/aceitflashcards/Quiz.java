@@ -1,8 +1,17 @@
 package com.aceteam.aceitflashcards;
 
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -282,11 +291,13 @@ public class Quiz
    * Exports the Quiz to a File.
    *
    */
+
+  /*
   public void export()  {
     // TODO: Code this.
 
-    //Get curret directory
-    PackageManager m = getPackageManager();
+    //Get current directory
+    PackageManager m = Context.getPackageManager();
     String s = getPackageName();
     PackageInfo p = m.getPackageInfo(s, 0);
     s = p.applicationInfo.dataDir;
@@ -304,7 +315,7 @@ public class Quiz
 
   }
 
-  public void import()
+  public static Quiz import()
   {
     //get current app directory
     PackageManager m = getPackageManager();
@@ -320,16 +331,19 @@ public class Quiz
       q = (Quiz) in.readObject();
       in.close();
       fileIn.close();
+      return q;
    } catch (IOException i) {
       i.printStackTrace();
-      return;
+      return null;
    } catch (ClassNotFoundException c) {
       System.out.println("Quiz class not found");
       c.printStackTrace();
-      return;
+      return null;
    }
   }
 
+
+   */
 
  /*
   public JSONObject getJson() throws JSONException {

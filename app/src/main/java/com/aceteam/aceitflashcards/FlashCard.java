@@ -529,9 +529,4 @@ public class FlashCard
             "Open Quizzes" + ":" + getQuizzes() + "," +
             "hint" + ":" + getHint()+ "]";
   }
-
-  public Object getFileInputStream() {
-
-    return FileInputStream;
-  }
 }

@@ -1,5 +1,10 @@
 package com.aceteam.aceitflashcards;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Set;
 import java.io.File;
 import java.util.HashSet;
@@ -474,66 +479,43 @@ public class FlashCard
   }
 
   /**
-   * Exports the FlashCard to a File.
-   * 
-   * @return a File object with the exported FlashCard.
+   * Exports the FlashCard to a file.
+   *
    */
-
-  /*
-  public File export(){
-    // TODO: Code this.
-    File outputStream = (File) FileOutputStream;
-    return outputStream;
-
-
-    //Get current app directory
-    PackageManager m = getPackageManager();
-    String s = getPackageName();
-    PackageInfo p = m.getPackageInfo(s, 0);
-    s = p.applicationInfo.dataDir;
-
-    //Export file
+  public void exportFlash()  {
     try {
-      FileOutputStream fileOut = new FileOutputStream(s + "/flash.ser");
+      java.io.FileOutputStream fileOut = new FileOutputStream("/data/data/com.aceteam.aceitflashcards/files/flash.ser");
       ObjectOutputStream out = new ObjectOutputStream(fileOut);
       out.writeObject(this);
       out.close();
       fileOut.close();
-   } catch (IOException i) {
+    } catch (IOException i) {
       i.printStackTrace();
-   }
+    }
   }
-
-
-  public void import()
+  /**
+   * Imports a new FlashCard from a file.
+   * @return a FlashCard.
+   */
+  public static FlashCard importFlash()
   {
-    //get current app directory
-    PackageManager m = getPackageManager();
-    String s = getPackageName();
-    PackageInfo p = m.getPackageInfo(s, 0);
-    s = p.applicationInfo.dataDir;
-
-    //import file
-    FlashCard F = null;
+    FlashCard f = null;
     try {
-      FileInputStream fileIn = new FileInputStream( s + "/Flash.ser");
+      java.io.FileInputStream fileIn = new FileInputStream("/data/data/com.aceteam.aceitflashcards/files/flash.ser");
       ObjectInputStream in = new ObjectInputStream(fileIn);
-      F = (Flashcard) in.readObject();
+      f = (FlashCard) in.readObject();
       in.close();
       fileIn.close();
-   } catch (IOException i) {
+      return f;
+    } catch (IOException i) {
       i.printStackTrace();
-      return;
-   } catch (ClassNotFoundException c) {
-      System.out.println("Flashcard class not found");
+      return null;
+    } catch (ClassNotFoundException c) {
+      System.out.println("FlashCard class not found");
       c.printStackTrace();
-      return;
-   }
-
+      return null;
+    }
   }
-
-   */
-
   /**
    * Returns a text representation of the FlashCard.
    * @return A String representing the FlashCard.

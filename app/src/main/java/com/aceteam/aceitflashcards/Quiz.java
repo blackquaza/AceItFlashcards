@@ -101,15 +101,6 @@ public class Quiz implements Serializable
     new Quiz (aName, 0, new HashSet<FlashCard>());
   }
 
-  /**
-   * A constructor for the Quiz class that imports information from a previously exported file.
-   * 
-   * @param file The file that contains the Quiz information.
-   */
-  public Quiz(File file){
-    // TODO: Code this.
-  }
-
   //------------------------
   // INTERFACE
   //------------------------

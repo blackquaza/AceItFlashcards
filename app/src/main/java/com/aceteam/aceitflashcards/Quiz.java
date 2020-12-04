@@ -1,5 +1,9 @@
 package com.aceteam.aceitflashcards;
 
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -8,6 +12,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -20,7 +25,7 @@ import java.io.File;
  * 
  * @see FlashCard
  */
-public class Quiz
+public class Quiz implements Serializable
 {
 
   //------------------------
@@ -284,17 +289,12 @@ public class Quiz
   }
 
   /**
-   * Exports the Quiz to a File.
+   * Exports the Quiz to a file.
    *
    */
-  public void export()  {
-    // TODO: Code this.
-
-
-
-
+  public void exportQuiz()  {
     try {
-      FileOutputStream fileOut = new FileOutputStream("/data/data/com.aceteam.aceitflashcards/files/Quiz.ser");
+      FileOutputStream fileOut = new FileOutputStream("/data/data/com.aceteam.aceitflashcards/files/quiz.ser");
       ObjectOutputStream out = new ObjectOutputStream(fileOut);
       out.writeObject(this);
       out.close();
@@ -302,41 +302,30 @@ public class Quiz
    } catch (IOException i) {
       i.printStackTrace();
    }
-
   }
-
-  public void Import()
+  /**
+   * Imports a new Quiz from a file.
+   * @return a Quiz.
+   */
+  public static Quiz importQuiz()
   {
-
-    //import file
     Quiz q = null;
     try {
-      FileInputStream fileIn = new FileInputStream( "/data/data/com.aceteam.aceitflashcards/files/Quiz.ser");
+      FileInputStream fileIn = new FileInputStream("/data/data/com.aceteam.aceitflashcards/files/quiz.ser");
       ObjectInputStream in = new ObjectInputStream(fileIn);
       q = (Quiz) in.readObject();
       in.close();
       fileIn.close();
+      return q;
    } catch (IOException i) {
       i.printStackTrace();
-      return;
+      return null;
    } catch (ClassNotFoundException c) {
       System.out.println("Quiz class not found");
       c.printStackTrace();
-      return;
+      return null;
    }
   }
-
-
- /*
-  public JSONObject getJson() throws JSONException {
-    JSONObject jsonObject = new JSONObject();
-    jsonObject.put("name", name);
-    jsonObject.put("numQuestionsToShow", numQuestionsToShow);
-    jsonObject.put("flashcards", flashCards);
-    return jsonObject;
-
-  }
-*/
     /**
      * Returns a text representation of the Quiz.
      * @return A String representing the Quiz.

@@ -3,8 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/flashcard_vertical">
+    app:startDestination="@id/fragment_TitleScreen">
     <fragment
-        android:id="@+id/flashcard_vertical"
-        android:name="com.aceteam.aceitflashcards.Fragment_FlashCardVertical" />
+        android:id="@+id/fragment_TitleScreen"
+        android:name="com.aceteam.aceitflashcards.Fragment_TitleScreen"
+        android:label="Fragment_TitleScreen" >
+        <action
+            android:id="@+id/action_fragment_TitleScreen_to_fragment_MainMenu"
+            app:destination="@id/fragment_MainMenu" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_FlashCardVertical"
+        android:name="com.aceteam.aceitflashcards.Fragment_FlashCard"
+        android:label="Fragment_FlashCardVertical" />
+    <fragment
+        android:id="@+id/fragment_MainMenu"
+        android:name="com.aceteam.aceitflashcards.Fragment_MainMenu"
+        android:label="Fragment_MainMenu" />
 </navigation>

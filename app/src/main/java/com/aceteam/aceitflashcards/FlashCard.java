@@ -1,7 +1,5 @@
 package com.aceteam.aceitflashcards;
 
-import android.content.pm.PackageManager;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -481,49 +479,43 @@ public class FlashCard
   }
 
   /**
-   * Exports the FlashCard to a File.
+   * Exports the FlashCard to a file.
    *
    */
-  public void export() throws PackageManager.NameNotFoundException {
-    // TODO: Code this.
-    /*
-    File outputStream = (File) FileOutputStream;
-    return outputStream;
-*/
-
-    //Export file
+  public void exportFlash()  {
     try {
-      java.io.FileOutputStream fileOut = new FileOutputStream( "/data/data/com.aceteam.aceitflashcards/files/Flash.ser");
+      java.io.FileOutputStream fileOut = new FileOutputStream("/data/data/com.aceteam.aceitflashcards/files/flash.ser");
       ObjectOutputStream out = new ObjectOutputStream(fileOut);
       out.writeObject(this);
       out.close();
       fileOut.close();
-   } catch (IOException i) {
+    } catch (IOException i) {
       i.printStackTrace();
-   }
+    }
   }
-
-
-  public void Import()
+  /**
+   * Imports a new FlashCard from a file.
+   * @return a FlashCard.
+   */
+  public static FlashCard importFlash()
   {
-    //import file
-    FlashCard F = null;
+    FlashCard f = null;
     try {
-      java.io.FileInputStream fileIn = new FileInputStream( "/data/data/com.aceteam.aceitflashcards/files/Flash.ser");
+      java.io.FileInputStream fileIn = new FileInputStream("/data/data/com.aceteam.aceitflashcards/files/flash.ser");
       ObjectInputStream in = new ObjectInputStream(fileIn);
-      F = (FlashCard) in.readObject();
+      f = (FlashCard) in.readObject();
       in.close();
       fileIn.close();
-   } catch (IOException i) {
+      return f;
+    } catch (IOException i) {
       i.printStackTrace();
-      return;
-   } catch (ClassNotFoundException c) {
-      System.out.println("Flashcard class not found");
+      return null;
+    } catch (ClassNotFoundException c) {
+      System.out.println("FlashCard class not found");
       c.printStackTrace();
-      return;
-   }
+      return null;
+    }
   }
-
   /**
    * Returns a text representation of the FlashCard.
    * @return A String representing the FlashCard.
@@ -536,10 +528,5 @@ public class FlashCard
             "See all the tags" + ":" + getTags()+ "," + getTextId() + "," +
             "Open Quizzes" + ":" + getQuizzes() + "," +
             "hint" + ":" + getHint()+ "]";
-  }
-
-  public Object getFileInputStream() {
-
-    return FileInputStream;
   }
 }

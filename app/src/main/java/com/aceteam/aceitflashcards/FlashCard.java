@@ -487,7 +487,7 @@ public class FlashCard
    */
   public void exportFlash() throws UnsupportedEncodingException, NoSuchAlgorithmException {
 
-    String hashString = this.question + this.answer;
+    String hashString = this.toString();
     byte[] fcName = hashString.getBytes("UTF-8");
     MessageDigest md =  MessageDigest.getInstance("MD5");
     byte[] digest = md.digest(fcName);

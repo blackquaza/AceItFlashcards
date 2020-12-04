@@ -298,7 +298,7 @@ public class Quiz implements Serializable
    */
   public void exportQuiz() throws UnsupportedEncodingException, NoSuchAlgorithmException {
 
-    String hashString = this.name ;
+    String hashString = this.toString() ;
     byte[] fcName = hashString.getBytes("UTF-8");
     MessageDigest md =  MessageDigest.getInstance("MD5");
     byte[] digest = md.digest(fcName);

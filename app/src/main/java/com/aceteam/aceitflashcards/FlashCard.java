@@ -5,11 +5,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Set;
 import java.io.File;
 import java.util.HashSet;
 import java.util.Collections;
 import java.util.Iterator;
+import java.security.MessageDigest;
 
 /**
  * This class represents a flashcard. It contains a question and an answer, and may contain
@@ -482,9 +485,20 @@ public class FlashCard
    * Exports the FlashCard to a file.
    *
    */
-  public void exportFlash()  {
+  public void exportFlash() throws UnsupportedEncodingException, NoSuchAlgorithmException {
+
+    String hashString = this.question + this.answer;
+    byte[] fcName = hashString.getBytes("UTF-8");
+    MessageDigest md =  MessageDigest.getInstance("MD5");
+    byte[] digest = md.digest(fcName);
+
+    String s = digest.toString();
+
+
+
+
     try {
-      java.io.FileOutputStream fileOut = new FileOutputStream("/data/data/com.aceteam.aceitflashcards/files/flash.ser");
+      java.io.FileOutputStream fileOut = new FileOutputStream("/data/data/com.aceteam.aceitflashcards/files/" + s + ".ser");
       ObjectOutputStream out = new ObjectOutputStream(fileOut);
       out.writeObject(this);
       out.close();

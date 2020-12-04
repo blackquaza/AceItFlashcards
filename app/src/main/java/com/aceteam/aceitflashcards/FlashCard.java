@@ -87,19 +87,6 @@ public class FlashCard
     new FlashCard(aQuestion, aAnswer, aHint, aWrongAnswers, new HashSet<Tag>());
   }
 
-  /**
-   * A constructor for the FlashCard class that imports information from a previously exported file.
-   *  @param file The file that contains the FlashCard information.
-   * @param flashCard
-   * @param fileInputStream
-   */
-  public FlashCard(File file, Object flashCard, Object fileInputStream){
-    this.flashCard = flashCard;
-
-    FileInputStream = fileInputStream;
-    //TODO: Code this.
-  }
-
   public FlashCard(String aQuestion, String aAnswer, String aHint, Set<String> aWrongAnswers, HashSet<Tag> tags) {
 
   }

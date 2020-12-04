@@ -15,9 +15,44 @@
     <fragment
         android:id="@+id/fragment_FlashCardVertical"
         android:name="com.aceteam.aceitflashcards.Fragment_FlashCard"
-        android:label="Fragment_FlashCardVertical" />
+        android:label="Fragment_FlashCardVertical" >
+        <action
+            android:id="@+id/action_fragment_FlashCardVertical_to_fragment_FlashCardList"
+            app:destination="@id/fragment_FlashCardList" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_MainMenu"
         android:name="com.aceteam.aceitflashcards.Fragment_MainMenu"
-        android:label="Fragment_MainMenu" />
+        android:label="Fragment_MainMenu" >
+        <action
+            android:id="@+id/action_fragment_MainMenu_to_fragment_FlashCardList"
+            app:destination="@id/fragment_FlashCardList" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_FlashCardList"
+        android:name="com.aceteam.aceitflashcards.Fragment_FlashCardList"
+        android:label="fragment_flashcard_list"
+        tools:layout="@layout/fragment_flashcard_list" >
+        <action
+            android:id="@+id/action_fragment_FlashCardList_to_fragment_MainMenu"
+            app:destination="@id/fragment_MainMenu" />
+        <action
+            android:id="@+id/action_fragment_FlashCardList_to_fragment_FlashCardVertical"
+            app:destination="@id/fragment_FlashCardVertical" />
+        <action
+            android:id="@+id/action_fragment_FlashCardList_to_fragment_CreateFlashCard"
+            app:destination="@id/fragment_CreateFlashCard" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_CreateFlashCard"
+        android:name="com.aceteam.aceitflashcards.Fragment_CreateFlashCard"
+        android:label="fragment_createflashcard"
+        tools:layout="@layout/fragment_createflashcard" >
+        <action
+            android:id="@+id/action_fragment_CreateFlashCard_to_fragment_FlashCardList"
+            app:destination="@id/fragment_FlashCardList" />
+        <action
+            android:id="@+id/action_fragment_CreateFlashCard_to_fragment_FlashCardVertical"
+            app:destination="@id/fragment_FlashCardVertical" />
+    </fragment>
 </navigation>

@@ -10,6 +10,8 @@
     <string name="flashcards">Flash Cards</string>
     <string name="quizzes">Quizzes</string>
     <string name="tags">Tags</string>
+    <string name="back">Back</string>
+    <string name="save">Save</string>
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
@@ -19,7 +21,10 @@
     <string name="correct_toast">Correct</string>
     <string name="incorrect_toast">Incorrect</string>
     <string name="Import">Import</string>
-    <string name="question_java">Add your Question</string>
+    <string name="add_question">Add Question</string>
+    <string name="add_answer">Add Answer</string>
+    <string name="question_hint">Enter your question here.</string>
+    <string name="answer_hint">Enter your answer here.</string>
 
 
 </resources>

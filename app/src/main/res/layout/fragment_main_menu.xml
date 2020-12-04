@@ -7,7 +7,7 @@
     tools:context=".Fragment_MainMenu">
 
     <Button
-        android:id="@+id/titlescreen_start"
+        android:id="@+id/menu_viewflashcard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/flashcards"

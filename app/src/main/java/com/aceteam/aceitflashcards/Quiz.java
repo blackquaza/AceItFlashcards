@@ -13,11 +13,15 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.io.File;
+import java.security.MessageDigest;
 
 /** 
  * The Quiz class is a collection of FlashCards that tests the user on
@@ -292,9 +296,17 @@ public class Quiz implements Serializable
    * Exports the Quiz to a file.
    *
    */
-  public void exportQuiz()  {
+  public void exportQuiz() throws UnsupportedEncodingException, NoSuchAlgorithmException {
+
+    String hashString = this.name ;
+    byte[] fcName = hashString.getBytes("UTF-8");
+    MessageDigest md =  MessageDigest.getInstance("MD5");
+    byte[] digest = md.digest(fcName);
+
+    String s = digest.toString();
+
     try {
-      FileOutputStream fileOut = new FileOutputStream("/data/data/com.aceteam.aceitflashcards/files/quiz.ser");
+      FileOutputStream fileOut = new FileOutputStream("/data/data/com.aceteam.aceitflashcards/files/" + s  + ".ser");
       ObjectOutputStream out = new ObjectOutputStream(fileOut);
       out.writeObject(this);
       out.close();

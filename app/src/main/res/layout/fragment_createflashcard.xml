@@ -71,7 +71,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top"
         android:layout_marginTop="32dp"
-        android:hint="@string/question_hint"
+        android:hint="@string/answer_hint"
         android:importantForAutofill="no"
         android:inputType="textCapSentences|textMultiLine"
         android:minHeight="80dp"

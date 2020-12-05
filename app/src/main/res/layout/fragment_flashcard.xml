@@ -34,7 +34,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Lorem Ipsum" />
     <TextView
-        android:id="@+id/HintButton"
+        android:id="@+id/createflashcard_hinttext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/answer_hint"
@@ -44,12 +44,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/createflashcard_hintinput"
+        android:id="@+id/HintButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hint_hint"
+        android:text="@string/open_hint"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/createflashcard_hintinput" />
+        app:layout_constraintTop_toBottomOf="@id/HintButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

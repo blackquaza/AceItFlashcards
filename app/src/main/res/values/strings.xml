@@ -29,7 +29,7 @@
     <string name="question_hint">Enter your question here.</string>
     <string name="answer_hint">Enter your answer here.</string>
     <string name="hint_hint">Enter a hint here.</string>
-    <string name="tag_hint">Enter tags as a list separated by commas here.</string>
+    <string name="tag_hint">Enter tags separated by commas here.</string>
     <string name="question_needed">Please enter a question.</string>
     <string name="answer_needed">Please enter an answer.</string>
 

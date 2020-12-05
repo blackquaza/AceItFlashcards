@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.Space;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -117,5 +118,6 @@ public class Fragment_FlashCardList extends Fragment {
             layout.addView(cardView);
 
         }
+        Space space = new Space(getContext());
     }
 }

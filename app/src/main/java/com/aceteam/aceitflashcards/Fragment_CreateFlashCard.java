@@ -9,11 +9,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.fragment.NavHostFragment;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.File;
 import java.util.HashSet;
@@ -40,6 +43,14 @@ public class Fragment_CreateFlashCard extends Fragment {
                         .navigate(R.id.action_fragment_CreateFlashCard_to_fragment_FlashCardList);
             }
         });
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                view.findViewById(R.id.createflashcard_back).performClick();
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
 
         view.findViewById(R.id.createflashcard_save).setOnClickListener(new View.OnClickListener() {
             @Override

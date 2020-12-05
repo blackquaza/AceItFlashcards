@@ -1,11 +1,13 @@
 package com.aceteam.aceitflashcards;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
@@ -33,6 +35,14 @@ public class Fragment_FlashCard extends Fragment {
                         .navigate(R.id.action_fragment_FlashCardVertical_to_fragment_FlashCardList);
             }
         });
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                view.findViewById(R.id.flashcard_back).performClick();
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
 
         Bundle b = getArguments();
         FlashCard t;

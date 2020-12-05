@@ -60,19 +60,29 @@ public class Fragment_CreateFlashCard extends Fragment {
                 String question = qText.getText().toString().trim();
                 EditText aText = getActivity().findViewById(R.id.createflashcard_answerinput);
                 String answer = aText.getText().toString().trim();
-
-                String hint = "";
+                EditText hText = getActivity().findViewById(R.id.createflashcard_hintinput);
+                String hint = hText.getText().toString().trim();
                 Set<String> wrongAnswers = new HashSet<String>();
                 Set<Tag> tags = new HashSet<Tag>();
 
-                FlashCard card = new FlashCard(question, answer, hint, wrongAnswers, tags);
-                File cardFolder = new File(getContext().getFilesDir(), "flashcards");
-                card.exportFlash(cardFolder);
+                if (question.isEmpty()) {
+                    String e = getResources().getString(R.string.question_needed);
+                    Toast.makeText(getContext(), e, Toast.LENGTH_SHORT).show();
+                } else if (answer.isEmpty()) {
+                    String e = getResources().getString(R.string.answer_needed);
+                    Toast.makeText(getContext(), e, Toast.LENGTH_SHORT).show();
+                } else {
 
-                Bundle b = new Bundle();
-                b.putSerializable("Card", card);
-                NavHostFragment.findNavController(Fragment_CreateFlashCard.this)
-                        .navigate(R.id.action_fragment_CreateFlashCard_to_fragment_FlashCardVertical, b);
+                    FlashCard card = new FlashCard(question, answer, hint, wrongAnswers, tags);
+                    File cardFolder = new File(getContext().getFilesDir(), "flashcards");
+                    card.exportFlash(cardFolder);
+
+                    Bundle b = new Bundle();
+                    b.putSerializable("Card", card);
+                    NavHostFragment.findNavController(Fragment_CreateFlashCard.this)
+                            .navigate(R.id.action_fragment_CreateFlashCard_to_fragment_FlashCardVertical, b);
+
+                }
             }
         });
     }

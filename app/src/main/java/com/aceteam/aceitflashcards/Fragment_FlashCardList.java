@@ -60,7 +60,21 @@ public class Fragment_FlashCardList extends Fragment {
             TextView text = new TextView(getContext());
             text.setText(card.getQuestion());
             text.setPadding(10, 10, 10, 10);
+
+            text.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Bundle b = new Bundle();
+                    b.putSerializable("Card", card);
+
+                    NavHostFragment.findNavController(Fragment_FlashCardList.this)
+                            .navigate(R.id.action_fragment_FlashCardList_to_fragment_FlashCardVertical, b);
+                }
+            });
+
             layout.addView(text);
+
         }
     }
 }

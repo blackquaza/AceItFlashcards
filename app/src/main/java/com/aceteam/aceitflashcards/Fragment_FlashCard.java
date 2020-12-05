@@ -8,8 +8,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 public class Fragment_FlashCard extends Fragment {
+
+    boolean showQ = true;
 
     @Override
     public View onCreateView(
@@ -23,24 +26,39 @@ public class Fragment_FlashCard extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Bundle b = getArguments();
-        FlashCard card = null;
-        try {
-            card = (FlashCard) b.getSerializable("Card");
-        } catch (NullPointerException e) {
-
-        }
-
-        TextView box = view.findViewById(R.id.flashcard_vertical_textbox);
-        box.setText(card.getQuestion());
-        /*
-        view.findViewById(R.id.button_first).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.flashcard_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(flashcard_vertical.this)
-                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
+                NavHostFragment.findNavController(Fragment_FlashCard.this)
+                        .navigate(R.id.action_fragment_FlashCardVertical_to_fragment_FlashCardList);
             }
         });
-         */
+
+        Bundle b = getArguments();
+        FlashCard t;
+        try {
+            t = (FlashCard) b.getSerializable("Card");
+        } catch (NullPointerException e) {
+            t = null;
+        }
+        // The t variable  is used to make the card variable effectively final,
+        // which is needed in order to be used in the onClick method.
+        FlashCard card = t;
+
+        TextView box = view.findViewById(R.id.flashcard_textbox);
+        box.setText(card.getQuestion());
+
+        view.findViewById(R.id.flashcard_textbox).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (showQ) {
+                    box.setText(card.getAnswer());
+                    showQ = false;
+                } else {
+                    box.setText(card.getQuestion());
+                    showQ = true;
+                }
+            }
+        });
     }
 }

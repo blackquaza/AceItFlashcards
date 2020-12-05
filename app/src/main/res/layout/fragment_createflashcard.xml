@@ -89,6 +89,52 @@
                 android:padding="20dp"
                 app:layout_constraintTop_toTopOf="@id/createflashcard_answertext" />
 
+            <TextView
+                android:id="@+id/createflashcard_hinttext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="29dp"
+                android:text="@string/add_hint"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/createflashcard_hintinput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:layout_marginTop="32dp"
+                android:hint="@string/hint_hint"
+                android:importantForAutofill="no"
+                android:inputType="textCapSentences|textMultiLine"
+                android:minHeight="80dp"
+                android:padding="20dp"
+                app:layout_constraintTop_toTopOf="@id/createflashcard_questiontext" />
+
+            <TextView
+                android:id="@+id/createflashcard_tagtext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="29dp"
+                android:text="@string/add_tag"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/createflashcard_taginput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:layout_marginTop="32dp"
+                android:hint="@string/tag_hint"
+                android:importantForAutofill="no"
+                android:inputType="textCapSentences|textMultiLine"
+                android:minHeight="80dp"
+                android:padding="20dp"
+                app:layout_constraintTop_toTopOf="@id/createflashcard_questiontext" />
+
         </LinearLayout>
     </ScrollView>
 

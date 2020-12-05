@@ -10,6 +10,7 @@
     <string name="flashcards">Flash Cards</string>
     <string name="quizzes">Quizzes</string>
     <string name="tags">Tags</string>
+    <string name="hints">Hints</string>
     <string name="back">Back</string>
     <string name="save">Save</string>
 
@@ -23,9 +24,11 @@
     <string name="Import">Import</string>
     <string name="add_question">Add Question</string>
     <string name="add_answer">Add Answer</string>
+    <string name="add_hint">Add Hint</string>
+    <string name="add_tag">Add Tags</string>
     <string name="question_hint">Enter your question here.</string>
     <string name="answer_hint">Enter your answer here.</string>
     <string name="hint_hint">Enter a hint here.</string>
-    <string name="tag_hint">Enter tags as a list separated by commas here.</string>
+    <string name="tag_hint">Enter tags separated by commas here.</string>
 
 </resources>

@@ -22,8 +22,17 @@ public class Fragment_FlashCard extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        Bundle b = getArguments();
+        FlashCard card = null;
+        try {
+            card = (FlashCard) b.getSerializable("Card");
+        } catch (NullPointerException e) {
+
+        }
+
         TextView box = view.findViewById(R.id.flashcard_vertical_textbox);
-        box.setText("Test text");
+        box.setText(card.getQuestion());
         /*
         view.findViewById(R.id.button_first).setOnClickListener(new View.OnClickListener() {
             @Override

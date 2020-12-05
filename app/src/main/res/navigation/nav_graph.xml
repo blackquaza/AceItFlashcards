@@ -42,6 +42,9 @@
         <action
             android:id="@+id/action_fragment_FlashCardList_to_fragment_CreateFlashCard"
             app:destination="@id/fragment_CreateFlashCard" />
+        <argument
+            android:name="Card"
+            app:argType="com.aceteam.aceitflashcards.FlashCard" />
     </fragment>
     <fragment
         android:id="@+id/fragment_CreateFlashCard"
@@ -54,5 +57,8 @@
         <action
             android:id="@+id/action_fragment_CreateFlashCard_to_fragment_FlashCardVertical"
             app:destination="@id/fragment_FlashCardVertical" />
+        <argument
+            android:name="Card"
+            app:argType="com.aceteam.aceitflashcards.FlashCard" />
     </fragment>
 </navigation>

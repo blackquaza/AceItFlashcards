@@ -5,7 +5,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.util.Set;
 import java.io.File;
@@ -20,7 +22,7 @@ import java.security.MessageDigest;
  * 
  * @see Quiz
  */
-public class FlashCard
+public class FlashCard implements Serializable
 {
   private Object flashCard = new Object();
 
@@ -34,7 +36,6 @@ public class FlashCard
   private String hint;
   private Set<String> wrongAnswers;
   private Set<Tag> tags;
-  private int aTextId;
   private Set<Quiz> quizzes;
   private final Object FileOutputStream;{FileOutputStream = null;}
 
@@ -56,7 +57,7 @@ public class FlashCard
    * 
    * @see Tag
    */
-  public FlashCard(String aQuestion, String aAnswer, String aHint, Set<String> aWrongAnswers, Set<Tag> aTags, int textId)
+  public FlashCard(String aQuestion, String aAnswer, String aHint, Set<String> aWrongAnswers, Set<Tag> aTags)
   {
     question = aQuestion;
     answer = aAnswer;
@@ -64,31 +65,7 @@ public class FlashCard
     wrongAnswers = aWrongAnswers;
     tags = aTags;
     quizzes = new HashSet<>();
-    aTextId = textId;
     flashCard = null;
-  }
-
-  /**
-
-
-  /**
-
-  
-  /**
-   * A constructor for the FlashCard class.
-   * 
-   * @param aQuestion A String with the question to show on the FlashCard.
-   * @param aAnswer A String with the answer to show on the FlashCard.
-   * @param aHint A String with the hint to show (if requested).
-   * @param aWrongAnswers A List of Strings containing wrong answers. This is to provide
-   * alternative answers when creating a Quiz.  **NEED TO FINISH
-   */
-  public FlashCard(String aQuestion, String aAnswer, String aHint, Set<String> aWrongAnswers){
-    new FlashCard(aQuestion, aAnswer, aHint, aWrongAnswers, new HashSet<Tag>());
-  }
-
-  public FlashCard(String aQuestion, String aAnswer, String aHint, Set<String> aWrongAnswers, HashSet<Tag> tags) {
-
   }
 
   //------------------------
@@ -127,15 +104,6 @@ public class FlashCard
     if (answer == aAnswer) {wasSet = true;}
     else {wasSet = false;}
     return wasSet;
-  }
-  public String isAnswer() {
-    return answer;
-  }
-  public void setTextId(int textId){
-    aTextId = textId;
-  }
-  public int getTextId() {
-    return aTextId;
   }
 
   /**
@@ -472,20 +440,26 @@ public class FlashCard
    * Exports the FlashCard to a file.
    *
    */
-  public void exportFlash() throws UnsupportedEncodingException, NoSuchAlgorithmException {
+  public void exportFlash() {
 
-    String hashString = this.toString();
-    byte[] fcName = hashString.getBytes("UTF-8");
-    MessageDigest md =  MessageDigest.getInstance("MD5");
-    byte[] digest = md.digest(fcName);
+    String s = "";
+    try {
+      String hashString = this.toString();
+      byte[] fcName = hashString.getBytes("UTF-8");
+      MessageDigest md =  MessageDigest.getInstance("MD5");
+      byte[] digest = md.digest(fcName);
 
-    String s = digest.toString();
+      BigInteger b = new BigInteger(1, digest);
+      s = String.format("%1$032X", b);
+    } catch (UnsupportedEncodingException e) {
 
+    } catch (NoSuchAlgorithmException e) {
 
-
+    }
 
     try {
-      java.io.FileOutputStream fileOut = new FileOutputStream("/data/data/com.aceteam.aceitflashcards/files/" + s + ".ser");
+      String loc = "/data/data/com.aceteam.aceitflashcards/files/flashcards/" + s + ".ser";
+      FileOutputStream fileOut = new FileOutputStream(loc);
       ObjectOutputStream out = new ObjectOutputStream(fileOut);
       out.writeObject(this);
       out.close();
@@ -498,11 +472,12 @@ public class FlashCard
    * Imports a new FlashCard from a file.
    * @return a FlashCard.
    */
-  public static FlashCard importFlash()
+  public static FlashCard importFlash(String filename)
   {
     FlashCard f = null;
     try {
-      java.io.FileInputStream fileIn = new FileInputStream("/data/data/com.aceteam.aceitflashcards/files/flash.ser");
+      String loc = "/data/data/com.aceteam.aceitflashcards/files/flashcards/" + filename;
+      java.io.FileInputStream fileIn = new FileInputStream(loc);
       ObjectInputStream in = new ObjectInputStream(fileIn);
       f = (FlashCard) in.readObject();
       in.close();
@@ -526,7 +501,7 @@ public class FlashCard
     return super.toString() + "["+
             "question" + ":" + getQuestion()+ "," +
             "answer" + ":" + getAnswer()+ "," +
-            "See all the tags" + ":" + getTags()+ "," + getTextId() + "," +
+            "See all the tags" + ":" + getTags()+ "," +
             "Open Quizzes" + ":" + getQuizzes() + "," +
             "hint" + ":" + getHint()+ "]";
   }

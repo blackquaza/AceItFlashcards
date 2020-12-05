@@ -12,12 +12,11 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Fragment_FlashCardList extends Fragment {
-
-    List<FlashCard> cardList = new ArrayList<>();
 
     @Override
     public View onCreateView(
@@ -26,8 +25,6 @@ public class Fragment_FlashCardList extends Fragment {
     ) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_flashcard_list, container, false);
-
-        // TODO: Import all the flashcards and put them in cardList.
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -49,10 +46,17 @@ public class Fragment_FlashCardList extends Fragment {
             }
         });
 
+        List<FlashCard> cardList = new ArrayList<>();
+
+        File folder = new File(getContext().getFilesDir(), "flashcards");
+        for (File cardFile : folder.listFiles()) {
+            cardList.add(FlashCard.importFlash(cardFile.getName()));
+        }
+
         LinearLayout layout = (LinearLayout) view.findViewById(R.id.flashcardlist_cardlayout);
 
         for (FlashCard card : cardList) {
-            // TODO: Fill the container with flashcards.
+            if (card == null) continue;
             TextView text = new TextView(getContext());
             text.setText(card.getQuestion());
             text.setPadding(10, 10, 10, 10);

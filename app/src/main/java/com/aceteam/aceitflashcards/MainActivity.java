@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.io.File;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -22,6 +24,23 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // Initial setup.
+        File folder = getApplicationContext().getFilesDir();
+        File cardFolder = new File(folder, "flashcards");
+        File tagFolder = new File(folder, "tags");
+        File quizFolder = new File(folder, "quizzes");
+
+        if (!cardFolder.exists()) {
+            cardFolder.mkdirs();
+        }
+        if (!tagFolder.exists()) {
+            tagFolder.mkdirs();
+        }
+        if (!quizFolder.exists()) {
+            quizFolder.mkdirs();
+        }
+
 
         /*
         FloatingActionButton fab = findViewById(R.id.fab);

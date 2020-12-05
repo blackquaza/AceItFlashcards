@@ -50,7 +50,7 @@ public class Fragment_FlashCardList extends Fragment {
 
         File folder = new File(getContext().getFilesDir(), "flashcards");
         for (File cardFile : folder.listFiles()) {
-            cardList.add(FlashCard.importFlash(cardFile.getName()));
+            cardList.add(FlashCard.importFlash(cardFile));
         }
 
         LinearLayout layout = (LinearLayout) view.findViewById(R.id.flashcardlist_cardlayout);

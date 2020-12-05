@@ -440,7 +440,7 @@ public class FlashCard implements Serializable
    * Exports the FlashCard to a file.
    *
    */
-  public void exportFlash() {
+  public void exportFlash(File cardFolder) {
 
     String s = "";
     try {
@@ -458,7 +458,7 @@ public class FlashCard implements Serializable
     }
 
     try {
-      String loc = "/data/data/com.aceteam.aceitflashcards/files/flashcards/" + s + ".ser";
+      File loc = new File(cardFolder, s + ".ser");
       FileOutputStream fileOut = new FileOutputStream(loc);
       ObjectOutputStream out = new ObjectOutputStream(fileOut);
       out.writeObject(this);
@@ -472,12 +472,11 @@ public class FlashCard implements Serializable
    * Imports a new FlashCard from a file.
    * @return a FlashCard.
    */
-  public static FlashCard importFlash(String filename)
+  public static FlashCard importFlash(File file)
   {
     FlashCard f = null;
     try {
-      String loc = "/data/data/com.aceteam.aceitflashcards/files/flashcards/" + filename;
-      java.io.FileInputStream fileIn = new FileInputStream(loc);
+      java.io.FileInputStream fileIn = new FileInputStream(file);
       ObjectInputStream in = new ObjectInputStream(fileIn);
       f = (FlashCard) in.readObject();
       in.close();

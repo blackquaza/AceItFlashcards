@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.fragment.NavHostFragment;
 
+import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -54,7 +55,8 @@ public class Fragment_CreateFlashCard extends Fragment {
                 Set<Tag> tags = new HashSet<Tag>();
 
                 FlashCard card = new FlashCard(question, answer, hint, wrongAnswers, tags);
-                card.exportFlash();
+                File cardFolder = new File(getContext().getFilesDir(), "flashcards");
+                card.exportFlash(cardFolder);
 
                 Bundle b = new Bundle();
                 b.putSerializable("Card", card);

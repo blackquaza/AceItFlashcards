@@ -4,23 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment_CreateQuiz">
+    tools:context=".Fragment_TagList">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/createquiz_save"
+        android:id="@+id/taglist_new"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="21dp"
         android:layout_marginBottom="21dp"
         android:clickable="true"
-        android:contentDescription="@string/save"
+        android:contentDescription="@string/Create_Flashcard"
         android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_save" />
+        app:srcCompat="@android:drawable/ic_input_add" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/createquiz_back"
+        android:id="@+id/taglist_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="21dp"
@@ -33,27 +33,16 @@
         app:srcCompat="@drawable/abc_vector_test" />
 
     <ScrollView
-        android:id="@+id/createquiz_scrollview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="96dp"
+        tools:layout_editor_absoluteY="181dp">
 
         <LinearLayout
-            android:id="@+id/createquiz_layout"
+            android:id="@+id/taglist_cardlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/quiz_select" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="75dp" />
-        </LinearLayout>
+            android:orientation="vertical"
+            android:weightSum="1"></LinearLayout>
     </ScrollView>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,16 @@
 package com.aceteam.aceitflashcards;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -197,6 +207,49 @@ public class Tag implements Serializable
       FlashCard temp = i.next();
       temp.removeTag(this);
       i.remove();
+    }
+  }
+
+
+  /**
+   * Exports the Tag to a file.
+   *
+   * @param cardFolder the folder in which to place the file.
+   */
+  public void exportTag(File cardFolder) {
+
+    try {
+      File loc = new File(cardFolder, getName() + ".ser");
+      FileOutputStream fileOut = new FileOutputStream(loc);
+      ObjectOutputStream out = new ObjectOutputStream(fileOut);
+      out.writeObject(this);
+      out.close();
+      fileOut.close();
+    } catch (IOException i) {
+      i.printStackTrace();
+    }
+  }
+  /**
+   * Imports a new FlashCard from a file.
+   * @return a FlashCard.
+   */
+  public static Tag importTag(File file)
+  {
+    Tag f = null;
+    try {
+      java.io.FileInputStream fileIn = new FileInputStream(file);
+      ObjectInputStream in = new ObjectInputStream(fileIn);
+      f = (Tag) in.readObject();
+      in.close();
+      fileIn.close();
+      return f;
+    } catch (IOException i) {
+      i.printStackTrace();
+      return null;
+    } catch (ClassNotFoundException c) {
+      System.out.println("Tag class not found");
+      c.printStackTrace();
+      return null;
     }
   }
 

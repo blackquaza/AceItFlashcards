@@ -36,20 +36,6 @@ public class Fragment_FlashCard extends Fragment {
                         .navigate(R.id.action_fragment_FlashCardVertical_to_fragment_FlashCardList);
             }
         });
-        view.findViewById(R.id.flashcard_hint).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), "Hint: ",Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                view.findViewById(R.id.flashcard_back).performClick();
-            }
-        };
-        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
 
         Bundle b = getArguments();
         FlashCard t;
@@ -61,6 +47,26 @@ public class Fragment_FlashCard extends Fragment {
         // The t variable  is used to make the card variable effectively final,
         // which is needed in order to be used in the onClick method.
         FlashCard card = t;
+
+        //String Hint = view.findViewById(R.id.flashcard_hint);
+        view.findViewById(R.id.flashcard_hint).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+               String Hint =  (card.getHint());
+                Toast.makeText(getContext(),"Hint: "+Hint,Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                view.findViewById(R.id.flashcard_back).performClick();
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
+
 
         TextView box = view.findViewById(R.id.flashcard_textbox);
         box.setText(card.getQuestion());

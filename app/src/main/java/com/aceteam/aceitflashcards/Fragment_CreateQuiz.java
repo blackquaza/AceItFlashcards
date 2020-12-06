@@ -3,6 +3,8 @@ package com.aceteam.aceitflashcards;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -95,6 +97,15 @@ public class Fragment_CreateQuiz extends Fragment {
                 @Override
                 public void onClick(View view) {
                    //Add Flashcard to Quiz when selected
+
+                    int color = Color.TRANSPARENT;
+                    Drawable background = view.getBackground();
+                    if (background instanceof ColorDrawable)
+                        color = ((ColorDrawable) background).getColor();
+                    if (color == Color.LTGRAY)
+                        view.setBackgroundColor(Color.WHITE);
+                    else
+                        view.setBackgroundColor(Color.LTGRAY);
 
 
                     Bundle b = new Bundle();

@@ -1,10 +1,13 @@
 package com.aceteam.aceitflashcards;
 
+import android.app.Activity;
+import android.hardware.input.InputManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,7 +22,9 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Fragment_CreateFlashCard extends Fragment {
@@ -31,6 +36,11 @@ public class Fragment_CreateFlashCard extends Fragment {
     ) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_createflashcard, container, false);
+    }
+
+    public void hideKeyboard(View v) {
+        ((InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE))
+                .hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -52,15 +62,33 @@ public class Fragment_CreateFlashCard extends Fragment {
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
 
+        EditText qText = getActivity().findViewById(R.id.createflashcard_questioninput);
+        EditText aText = getActivity().findViewById(R.id.createflashcard_answerinput);
+        EditText hText = getActivity().findViewById(R.id.createflashcard_hintinput);
+
+        List<EditText> editTextList = new ArrayList<EditText>();
+        editTextList.add(qText);
+        editTextList.add(aText);
+        editTextList.add(hText);
+
+        for (EditText editText : editTextList) {
+            editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (!hasFocus) {
+                        hideKeyboard(v);
+                    }
+                }
+            });
+        }
+
         view.findViewById(R.id.createflashcard_save).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                EditText qText = getActivity().findViewById(R.id.createflashcard_questioninput);
+
                 String question = qText.getText().toString().trim();
-                EditText aText = getActivity().findViewById(R.id.createflashcard_answerinput);
                 String answer = aText.getText().toString().trim();
-                EditText hText = getActivity().findViewById(R.id.createflashcard_hintinput);
                 String hint = hText.getText().toString().trim();
                 Set<String> wrongAnswers = new HashSet<String>();
                 Set<Tag> tags = new HashSet<Tag>();

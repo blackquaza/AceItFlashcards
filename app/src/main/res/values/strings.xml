@@ -37,5 +37,7 @@
     <string name="no_tags">You haven\'t made any tags.</string>
     <string name="name_tag">Create Tag</string>
     <string name="tag_create_hint">Enter the tag name here.</string>
+    <string name="quiz_name">Enter quiz name here.</string>
+    <string name="num_quest">Select the number of questions you would like to see.</string>
 
 </resources>

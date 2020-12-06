@@ -68,19 +68,19 @@ public class Fragment_QuizList  extends Fragment{
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
 
-        List<FlashCard> cardList = new ArrayList<>();
+        List<Quiz > cardList = new ArrayList<>();
 
         File folder = new File(getContext().getFilesDir(), "quizzes");
         for (File cardFile : folder.listFiles()) {
-            cardList.add(FlashCard.importFlash(cardFile));
+            cardList.add(Quiz.importQuiz(cardFile));
         }
 
         LinearLayout layout = view.findViewById(R.id.quizlist_cardlayout );
 
-        for (FlashCard card : cardList) {
+        for (Quiz card : cardList) {
             if (card == null) continue;
             TextView text = new TextView(getContext());
-            text.setText(card.getQuestion());
+            text.setText(card.getName() );
             text.setPadding(10, 10, 10, 10);
 
             MaterialCardView cardView = new MaterialCardView(getContext());

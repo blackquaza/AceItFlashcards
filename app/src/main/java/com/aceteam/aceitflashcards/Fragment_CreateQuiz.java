@@ -11,9 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Space;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -23,8 +25,12 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.google.android.material.card.MaterialCardView;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Fragment_CreateQuiz extends Fragment {
 
@@ -41,6 +47,11 @@ public class Fragment_CreateQuiz extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        EditText qText = getActivity().findViewById(R.id.quiz_name);
+        List<FlashCard> quizlist = new ArrayList<>();
+      Set<FlashCard> quizset = new HashSet<>(quizlist);
+
+
         view.findViewById(R.id.createquiz_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,6 +59,24 @@ public class Fragment_CreateQuiz extends Fragment {
                         .navigate(R.id.action_fragment_CreateQuiz_to_fragment_Quizlist );
             }
         });
+
+
+        view.findViewById(R.id.createquiz_save).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String name = qText.getText().toString().trim();
+                Quiz qzz = new Quiz(name, 5, quizset);
+                File quizfolder = new File(getContext().getFilesDir(), "quizzes");
+
+                    qzz.exportQuiz(quizfolder);
+
+                NavHostFragment.findNavController(Fragment_CreateQuiz.this)
+                        .navigate(R.id.action_fragment_CreateQuiz_to_fragment_Quizlist);
+            }
+
+        });
+
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
@@ -57,6 +86,7 @@ public class Fragment_CreateQuiz extends Fragment {
         };
 
         List<FlashCard> cardList = new ArrayList<>();
+
 
         File folder = new File(getContext().getFilesDir(), "flashcards");
         for (File cardFile : folder.listFiles()) {
@@ -94,23 +124,26 @@ public class Fragment_CreateQuiz extends Fragment {
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                   //Add Flashcard to Quiz when selected
+                    //Add Flashcard to Quiz when selected
 
                     int color = Color.TRANSPARENT;
                     Drawable background = view.getBackground();
                     if (background instanceof ColorDrawable)
                         color = ((ColorDrawable) background).getColor();
                     if (color == Color.LTGRAY)
+                    {
                         view.setBackgroundColor(Color.WHITE);
+                        Bundle b = new Bundle();
+                        b.putSerializable("Card", card);
+                        quizlist.remove(card);
+                    }
                     else
+                        {
+                        Bundle bb = new Bundle();
+                        bb.putSerializable("Card", card);
                         view.setBackgroundColor(Color.LTGRAY);
-
-
-                    Bundle b = new Bundle();
-                    b.putSerializable("Card", card);
-//
-//                    NavHostFragment.findNavController(Fragment_FlashCardList.this)
-//                            .navigate(R.id.action_fragment_FlashCardList_to_fragment_FlashCardVertical, b);
+                        quizlist.add(card);
+                        }
                 }
             });
 

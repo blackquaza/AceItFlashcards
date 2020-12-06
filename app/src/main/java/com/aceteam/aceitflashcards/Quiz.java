@@ -14,6 +14,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Collections;
@@ -287,47 +288,55 @@ public class Quiz implements Serializable
    * Exports the Quiz to a file.
    *
    */
-  public void exportQuiz() throws UnsupportedEncodingException, NoSuchAlgorithmException {
+  public void exportQuiz(File quizfolder) {
+    String s = "";
+    try {
+      String hashString = this.toString();
+      byte[] fcName = hashString.getBytes("UTF-8");
+      MessageDigest md =  MessageDigest.getInstance("MD5");
+      byte[] digest = md.digest(fcName);
 
-    String hashString = this.toString() ;
-    byte[] fcName = hashString.getBytes("UTF-8");
-    MessageDigest md =  MessageDigest.getInstance("MD5");
-    byte[] digest = md.digest(fcName);
+      BigInteger b = new BigInteger(1, digest);
+      s = String.format("%1$032X", b);
+    } catch (UnsupportedEncodingException e) {
 
-    String s = digest.toString();
+    } catch (NoSuchAlgorithmException e) {
+
+    }
 
     try {
-      FileOutputStream fileOut = new FileOutputStream("/data/data/com.aceteam.aceitflashcards/files/" + s  + ".ser");
+      File loc = new File(quizfolder, s + ".ser");
+      FileOutputStream fileOut = new FileOutputStream(loc);
       ObjectOutputStream out = new ObjectOutputStream(fileOut);
       out.writeObject(this);
       out.close();
       fileOut.close();
-   } catch (IOException i) {
+    } catch (IOException i) {
       i.printStackTrace();
-   }
+    }
   }
   /**
    * Imports a new Quiz from a file.
    * @return a Quiz.
    */
-  public static Quiz importQuiz()
+  public static Quiz importQuiz(File file)
   {
     Quiz q = null;
     try {
-      FileInputStream fileIn = new FileInputStream("/data/data/com.aceteam.aceitflashcards/files/quiz.ser");
+      java.io.FileInputStream fileIn = new FileInputStream(file);
       ObjectInputStream in = new ObjectInputStream(fileIn);
       q = (Quiz) in.readObject();
       in.close();
       fileIn.close();
       return q;
-   } catch (IOException i) {
+    } catch (IOException i) {
       i.printStackTrace();
       return null;
-   } catch (ClassNotFoundException c) {
-      System.out.println("Quiz class not found");
+    } catch (ClassNotFoundException c) {
+      System.out.println("FlashCard class not found");
       c.printStackTrace();
       return null;
-   }
+    }
   }
     /**
      * Returns a text representation of the Quiz.

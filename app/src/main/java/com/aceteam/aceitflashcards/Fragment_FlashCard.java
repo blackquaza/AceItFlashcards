@@ -39,6 +39,7 @@ public class Fragment_FlashCard extends Fragment {
         view.findViewById(R.id.flashcard_hint).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Toast.makeText(getContext(), "Hint: ",Toast.LENGTH_SHORT).show();
             }
         });

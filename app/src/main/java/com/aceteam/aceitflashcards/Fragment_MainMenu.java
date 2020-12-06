@@ -32,6 +32,14 @@ public class Fragment_MainMenu extends Fragment {
             }
         });
 
+        view.findViewById(R.id.menu_viewquiz ).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(Fragment_MainMenu.this)
+                        .navigate(R.id.action_fragment_MainMenu_to_fragment_Quizlist );
+            }
+        });
+
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {

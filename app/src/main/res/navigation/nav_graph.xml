@@ -27,6 +27,9 @@
         <action
             android:id="@+id/action_fragment_MainMenu_to_fragment_FlashCardList"
             app:destination="@id/fragment_FlashCardList" />
+        <action
+            android:id="@+id/action_fragment_MainMenu_to_fragment_Quizlist"
+            app:destination="@id/fragment_Quizlist" />
     </fragment>
     <fragment
         android:id="@+id/fragment_FlashCardList"
@@ -61,4 +64,27 @@
             android:name="Card"
             app:argType="com.aceteam.aceitflashcards.FlashCard" />
     </fragment>
+    <fragment
+        android:id="@+id/fragment_Quizlist"
+        android:name="com.aceteam.aceitflashcards.Fragment_QuizList"
+        android:label="Fragment_FlashCardVertical" >
+        <action
+            android:id="@+id/action_fragment_Quizlist_to_fragment_MainMenu"
+            app:destination="@id/fragment_MainMenu" />
+        <action
+            android:id="@+id/action_fragment_Quizlist_to_fragment_MainMenu2"
+            app:destination="@id/fragment_MainMenu" />
+        <action
+            android:id="@+id/action_fragment_Quizlist_to_fragment_CreateQuiz"
+            app:destination="@id/fragment_CreateQuiz" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_CreateQuiz"
+        android:name="com.aceteam.aceitflashcards.Fragment_CreateQuiz"
+        android:label="Fragment_FlashCardVertical" >
+        <action
+            android:id="@+id/action_fragment_CreateQuiz_to_fragment_Quizlist"
+            app:destination="@id/fragment_Quizlist" />
+    </fragment>
+
 </navigation>

@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_fragment_FlashCardVertical_to_fragment_FlashCardList"
             app:destination="@id/fragment_FlashCardList" />
+        <action
+            android:id="@+id/action_fragment_FlashCardVertical_to_fragment_quiz_flashcard_list"
+            app:destination="@id/fragment_quiz_flashcard_list" />
     </fragment>
     <fragment
         android:id="@+id/fragment_MainMenu"
@@ -70,18 +73,21 @@
     <fragment
         android:id="@+id/fragment_Quizlist"
         android:name="com.aceteam.aceitflashcards.Fragment_QuizList"
-        android:label="Fragment_FlashCardVertical" >
+        android:label="fragment_Quizlist" >
         <action
             android:id="@+id/action_fragment_Quizlist_to_fragment_MainMenu"
             app:destination="@id/fragment_MainMenu" />
         <action
             android:id="@+id/action_fragment_Quizlist_to_fragment_CreateQuiz"
             app:destination="@id/fragment_CreateQuiz" />
+        <action
+            android:id="@+id/action_fragment_Quizlist_to_fragment_quiz_flashcard_list"
+            app:destination="@id/fragment_quiz_flashcard_list" />
     </fragment>
     <fragment
         android:id="@+id/fragment_CreateQuiz"
         android:name="com.aceteam.aceitflashcards.Fragment_CreateQuiz"
-        android:label="Fragment_FlashCardVertical" >
+        android:label="fragment_CreateQuiz" >
         <action
             android:id="@+id/action_fragment_CreateQuiz_to_fragment_Quizlist"
             app:destination="@id/fragment_Quizlist" />
@@ -105,6 +111,18 @@
         <action
             android:id="@+id/action_fragment_CreateTag_to_fragment_TagList"
             app:destination="@id/fragment_TagList" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_quiz_flashcard_list"
+        android:name="com.aceteam.aceitflashcards.Fragment_QuizFlashCardList"
+        android:label="fragment_quiz_flashcard_list"
+        tools:layout="@layout/fragment_quiz_flashcard_list" >
+        <action
+            android:id="@+id/action_fragment_quiz_flashcard_list_to_fragment_Quizlist"
+            app:destination="@id/fragment_Quizlist" />
+        <action
+            android:id="@+id/action_fragment_quiz_flashcard_list_to_fragment_FlashCardVertical"
+            app:destination="@id/fragment_FlashCardVertical" />
     </fragment>
 
 </navigation>

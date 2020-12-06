@@ -25,7 +25,9 @@ import com.google.android.material.card.MaterialCardView;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 
 public class Fragment_QuizList  extends Fragment{
@@ -68,7 +70,7 @@ public class Fragment_QuizList  extends Fragment{
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
 
-        List<Quiz > cardList = new ArrayList<>();
+        List<Quiz> cardList = new ArrayList<>();
 
         File folder = new File(getContext().getFilesDir(), "quizzes");
         for (File cardFile : folder.listFiles()) {
@@ -103,6 +105,18 @@ public class Fragment_QuizList  extends Fragment{
             p.setMargins(10, 10, 10, 10);
             cardView.setLayoutParams(p);
 
+
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+
+                    Bundle b = new Bundle();
+                    b.putSerializable("Card", card);
+                    NavHostFragment.findNavController(Fragment_QuizList.this)
+                            .navigate(R.id.action_fragment_Quizlist_to_fragment_quiz_flashcard_list, b);
+                }
+            });
 
 
             cardView.addView(text);

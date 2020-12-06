@@ -3,6 +3,8 @@ package com.aceteam.aceitflashcards;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -55,7 +57,6 @@ public class Fragment_CreateQuiz extends Fragment {
         };
 
 
-
         List<FlashCard> cardList = new ArrayList<>();
 
         File folder = new File(getContext().getFilesDir(), "flashcards");
@@ -96,16 +97,21 @@ public class Fragment_CreateQuiz extends Fragment {
                 public void onClick(View view) {
                    //Add Flashcard to Quiz when selected
 
+                    int colour = Color.TRANSPARENT;
+                    Drawable backg = view.getBackground();
+                    if (backg instanceof ColorDrawable)
+                        colour = ((ColorDrawable) backg).getColor();
+                    if (colour == Color.LTGRAY)
+                        view.setBackgroundColor(Color.WHITE);
+                    else
+                        view.setBackgroundColor(Color.LTGRAY );
+
 
                     Bundle b = new Bundle();
                     b.putSerializable("Card", card);
 //
 //                    NavHostFragment.findNavController(Fragment_FlashCardList.this)
 //                            .navigate(R.id.action_fragment_FlashCardList_to_fragment_FlashCardVertical, b);
-
-
-
-
                 }
             });
 

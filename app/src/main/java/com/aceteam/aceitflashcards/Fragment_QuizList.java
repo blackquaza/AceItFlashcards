@@ -48,7 +48,7 @@ public class Fragment_QuizList  extends Fragment{
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(Fragment_QuizList.this)
-                        .navigate(R.id.action_fragment_Quizlist_to_fragment_MainMenu2);
+                        .navigate(R.id.action_fragment_Quizlist_to_fragment_MainMenu);
             }
         });
 
@@ -56,7 +56,7 @@ public class Fragment_QuizList  extends Fragment{
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(Fragment_QuizList.this)
-                        .navigate(R.id.action_fragment_Quizlist_to_fragment_CreateQuiz );
+                        .navigate(R.id.action_fragment_Quizlist_to_fragment_CreateQuiz);
             }
         });
 

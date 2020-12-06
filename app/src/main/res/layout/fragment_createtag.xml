@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment_CreateQuiz">
+    tools:context=".Fragment_CreateFlashCard">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/createquiz_save"
+        android:id="@+id/createtag_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="21dp"
@@ -20,7 +20,7 @@
         app:srcCompat="@android:drawable/ic_menu_save" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/createquiz_back"
+        android:id="@+id/createtag_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="21dp"
@@ -33,25 +33,47 @@
         app:srcCompat="@drawable/abc_vector_test" />
 
     <ScrollView
-        android:id="@+id/createquiz_scrollview"
+        android:id="@+id/createtag_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/createquiz_layout"
+            android:id="@+id/createtag_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/createtag_nametext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="29dp"
+                android:text="@string/name_tag"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/createtag_nameinput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/quiz_select" />
+                android:layout_gravity="top"
+                android:layout_marginTop="32dp"
+                android:hint="@string/tag_create_hint"
+                android:imeOptions="actionDone"
+                android:importantForAutofill="no"
+                android:inputType="textCapSentences|textMultiLine"
+                android:minHeight="80dp"
+                android:padding="20dp"
+                app:layout_constraintTop_toTopOf="@id/createtag_nametext" />
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="75dp" />
+
         </LinearLayout>
     </ScrollView>
 

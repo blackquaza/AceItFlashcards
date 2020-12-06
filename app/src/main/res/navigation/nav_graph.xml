@@ -30,6 +30,9 @@
         <action
             android:id="@+id/action_fragment_MainMenu_to_fragment_Quizlist"
             app:destination="@id/fragment_Quizlist" />
+        <action
+            android:id="@+id/action_fragment_MainMenu_to_fragment_TagList"
+            app:destination="@id/fragment_TagList" />
     </fragment>
     <fragment
         android:id="@+id/fragment_FlashCardList"
@@ -72,9 +75,6 @@
             android:id="@+id/action_fragment_Quizlist_to_fragment_MainMenu"
             app:destination="@id/fragment_MainMenu" />
         <action
-            android:id="@+id/action_fragment_Quizlist_to_fragment_MainMenu2"
-            app:destination="@id/fragment_MainMenu" />
-        <action
             android:id="@+id/action_fragment_Quizlist_to_fragment_CreateQuiz"
             app:destination="@id/fragment_CreateQuiz" />
     </fragment>
@@ -85,6 +85,26 @@
         <action
             android:id="@+id/action_fragment_CreateQuiz_to_fragment_Quizlist"
             app:destination="@id/fragment_Quizlist" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_TagList"
+        android:name="com.aceteam.aceitflashcards.Fragment_TagList"
+        android:label="fragment_tag_list"
+        tools:layout="@layout/fragment_tag_list" >
+        <action
+            android:id="@+id/action_fragment_TagList_to_fragment_MainMenu"
+            app:destination="@id/fragment_MainMenu" />
+        <action
+            android:id="@+id/action_fragment_TagList_to_fragment_CreateTag"
+            app:destination="@id/fragment_CreateTag" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_CreateTag"
+        android:name="com.aceteam.aceitflashcards.Fragment_CreateTag"
+        android:label="Fragment_CreateTag" >
+        <action
+            android:id="@+id/action_fragment_CreateTag_to_fragment_TagList"
+            app:destination="@id/fragment_TagList" />
     </fragment>
 
 </navigation>

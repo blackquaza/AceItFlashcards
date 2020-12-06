@@ -24,45 +24,53 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Fragment_CreateQuiz extends Fragment {
+public class Fragment_TagList extends Fragment {
 
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
-    )
-    {
+    ) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_createquiz , container, false);
+        return inflater.inflate(R.layout.fragment_tag_list, container, false);
     }
 
+    @SuppressWarnings("deprecation")
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        view.findViewById(R.id.createquiz_back).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.taglist_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(Fragment_CreateQuiz.this)
-                        .navigate(R.id.action_fragment_CreateQuiz_to_fragment_Quizlist );
+                NavHostFragment.findNavController(Fragment_TagList.this)
+                        .navigate(R.id.action_fragment_TagList_to_fragment_MainMenu);
+            }
+        });
+
+        view.findViewById(R.id.taglist_new).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(Fragment_TagList.this)
+                        .navigate(R.id.action_fragment_TagList_to_fragment_CreateTag);
             }
         });
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                view.findViewById(R.id.createquiz_back).performClick();
+                view.findViewById(R.id.taglist_back).performClick();
             }
         };
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
 
+        List<Tag> tagList = new ArrayList<>();
 
+        File folder = new File(getContext().getFilesDir(), "tags");
+        for (File tagFile : folder.listFiles()) {
+            tagList.add(Tag.importTag(tagFile));
+        }
 
-        List<FlashCard> cardList = new ArrayList<>();
-
-        File folder = new File(getContext().getFilesDir(), "flashcards");
-        for (File cardFile : folder.listFiles()) {
-            cardList.add(FlashCard.importFlash(cardFile));
-      }
-        LinearLayout layout = view.findViewById(R.id.createquiz_layout);;
+        LinearLayout layout = view.findViewById(R.id.taglist_cardlayout);
 
         // Fancy stuff here to get the actual height of the screen so I
         // can scale cards to the proper size. Uses newly deprecated code
@@ -71,7 +79,7 @@ public class Fragment_CreateQuiz extends Fragment {
         Point s = new Point();
         ((WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE))
                 .getDefaultDisplay().getSize(s);
-        int cardHeight = s.y / 4;
+        int cardHeight = s.y / 10;
 
         LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
@@ -79,10 +87,10 @@ public class Fragment_CreateQuiz extends Fragment {
         );
         p.setMargins(10, 10, 10, 10);
 
-        for (FlashCard card : cardList) {
-            if (card == null) continue;
+        for (Tag tag : tagList) {
+            if (tag == null) continue;
             TextView text = new TextView(getContext());
-            text.setText(card.getQuestion());
+            text.setText(tag.getName());
             text.setPadding(10, 10, 10, 10);
 
             MaterialCardView cardView = new MaterialCardView(getContext());
@@ -94,7 +102,13 @@ public class Fragment_CreateQuiz extends Fragment {
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                   //Add Flashcard to Quiz when selected
+
+                    Bundle b = new Bundle();
+                    b.putSerializable("Tag", tag);
+
+                    // TODO: Code an edit screen?
+                    //NavHostFragment.findNavController(Fragment_TagList.this)
+                    //        .navigate(R.id.action_fragment_FlashCardList_to_fragment_FlashCardVertical, b);
                 }
             });
 
@@ -111,7 +125,3 @@ public class Fragment_CreateQuiz extends Fragment {
 
     }
 }
-
-
-
-

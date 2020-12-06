@@ -53,7 +53,9 @@
             app:destination="@id/fragment_CreateFlashCard" />
         <argument
             android:name="Card"
-            app:argType="com.aceteam.aceitflashcards.FlashCard" />
+            app:argType="com.aceteam.aceitflashcards.FlashCard"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/fragment_CreateFlashCard"

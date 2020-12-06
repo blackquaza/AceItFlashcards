@@ -41,7 +41,7 @@ public class Fragment_CreateQuiz extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        view.findViewById(R.id.createflashcard_back).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.createquiz_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(Fragment_CreateQuiz.this)
@@ -52,11 +52,9 @@ public class Fragment_CreateQuiz extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                view.findViewById(R.id.createflashcard_back).performClick();
+                view.findViewById(R.id.createquiz_back).performClick();
             }
         };
-
-
 
         List<FlashCard> cardList = new ArrayList<>();
 
@@ -64,7 +62,7 @@ public class Fragment_CreateQuiz extends Fragment {
         for (File cardFile : folder.listFiles()) {
             cardList.add(FlashCard.importFlash(cardFile));
       }
-        LinearLayout layout = view.findViewById(R.id.createquiz_layout );
+        LinearLayout layout = view.findViewById(R.id.createquiz_layout);
 
         // Fancy stuff here to get the actual height of the screen so I
         // can scale cards to the proper size. Uses newly deprecated code
@@ -113,10 +111,6 @@ public class Fragment_CreateQuiz extends Fragment {
 //
 //                    NavHostFragment.findNavController(Fragment_FlashCardList.this)
 //                            .navigate(R.id.action_fragment_FlashCardList_to_fragment_FlashCardVertical, b);
-
-
-
-
                 }
             });
 

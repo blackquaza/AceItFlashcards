@@ -33,5 +33,6 @@
     <string name="tag_hint">Enter tags separated by commas here.</string>
     <string name="question_needed">Please enter a question.</string>
     <string name="answer_needed">Please enter an answer.</string>
+    <string name="quiz_select">Please select the flashcards for the quiz.</string>
 
 </resources>

@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".Fragment_CreateQuiz">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/quiz_select" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/createflashcard_save"
         android:layout_width="wrap_content"
@@ -43,20 +49,9 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/createflashcard_tagtext"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="29dp"
-                android:text="@string/add_tag"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="75dp" />
-
         </LinearLayout>
     </ScrollView>
 

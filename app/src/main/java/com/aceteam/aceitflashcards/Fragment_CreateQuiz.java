@@ -44,6 +44,11 @@ public class Fragment_CreateQuiz extends Fragment {
                 view.findViewById(R.id.createflashcard_back).performClick();
             }
         };
+
+
+
+
+
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
 
         view.findViewById(R.id.createflashcard_save).setOnClickListener(new View.OnClickListener() {

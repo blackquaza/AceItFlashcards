@@ -1,5 +1,6 @@
 package com.aceteam.aceitflashcards;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -12,7 +13,7 @@ import java.util.Set;
  * 
  * @see FlashCard
  */
-public class Tag
+public class Tag implements Serializable
 {
 
   //------------------------

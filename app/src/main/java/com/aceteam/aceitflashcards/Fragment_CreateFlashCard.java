@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -80,6 +81,20 @@ public class Fragment_CreateFlashCard extends Fragment {
                     }
                 }
             });
+        }
+
+        File tagFolder = new File(getContext().getFilesDir(), "tags");
+
+        if (tagFolder.listFiles().length == 0) {
+            TextView t = new TextView(getContext());
+            t.setText(getResources().getString(R.string.no_tags));
+            t.setPadding(20,20,20,20);
+            LinearLayout l = view.findViewById(R.id.createflashcard_layout);
+            l.addView(t, 7);
+        } else {
+            for (File f : tagFolder.listFiles()) {
+                // TODO: Code this.
+            }
         }
 
         view.findViewById(R.id.createflashcard_save).setOnClickListener(new View.OnClickListener() {

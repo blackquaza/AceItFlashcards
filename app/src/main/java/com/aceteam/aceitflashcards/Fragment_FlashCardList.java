@@ -6,6 +6,7 @@ import android.graphics.Point;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,6 +77,21 @@ public class Fragment_FlashCardList extends Fragment {
 
         LinearLayout layout = view.findViewById(R.id.flashcardlist_cardlayout);
 
+        // Fancy stuff here to get the actual height of the screen so I
+        // can scale cards to the proper size. Uses newly deprecated code
+        // (as in, deprecated in Android 11), so we're not using the new
+        // code for backwards compatibility.
+        Point s = new Point();
+        ((WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE))
+                .getDefaultDisplay().getSize(s);
+        int cardHeight = s.y / 4;
+
+        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                cardHeight
+        );
+        p.setMargins(10, 10, 10, 10);
+
         for (FlashCard card : cardList) {
             if (card == null) continue;
             TextView text = new TextView(getContext());
@@ -86,20 +102,6 @@ public class Fragment_FlashCardList extends Fragment {
             cardView.setStrokeColor(Color.BLACK);
             cardView.setStrokeWidth(1);
             cardView.setRadius(10);
-
-            // Fancy stuff here to get the actual height of the screen so I
-            // can scale cards to the proper size. Uses newly deprecated code
-            // (as in, deprecated in Android 11), so we're not using the new
-            // code for backwards compatibility.
-            Point s = new Point();
-            ((WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE))
-                    .getDefaultDisplay().getSize(s);
-
-            LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    s.y / 4
-            );
-            p.setMargins(10, 10, 10, 10);
             cardView.setLayoutParams(p);
 
             cardView.setOnClickListener(new View.OnClickListener() {
@@ -118,6 +120,12 @@ public class Fragment_FlashCardList extends Fragment {
             layout.addView(cardView);
 
         }
+
         Space space = new Space(getContext());
+        int px = (int) Math.floor(TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 75, getResources().getDisplayMetrics()));
+        space.setMinimumHeight(px);
+        layout.addView(space);
+
     }
 }

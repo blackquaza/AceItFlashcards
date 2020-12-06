@@ -344,8 +344,7 @@ public class Quiz implements Serializable
      */
   public String toString()
   {
-    String s = super.toString() + "["+
-            "name" + ":" + getName()+ "," +
+    String s = "[name" + ":" + getName()+ "," +
             "numQuestionsToShow" + ":" + getNumQuestionsToShow()+ ", {";
     
     Iterator<FlashCard> i = flashCards.iterator();

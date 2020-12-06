@@ -8,10 +8,13 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewManager;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.Space;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +30,7 @@ import com.google.android.material.card.MaterialCardView;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Fragment_FlashCardList extends Fragment {
@@ -74,6 +78,7 @@ public class Fragment_FlashCardList extends Fragment {
         for (File cardFile : folder.listFiles()) {
             cardList.add(FlashCard.importFlash(cardFile));
         }
+        Collections.reverse(cardList);
 
         LinearLayout layout = view.findViewById(R.id.flashcardlist_cardlayout);
 
@@ -113,6 +118,39 @@ public class Fragment_FlashCardList extends Fragment {
 
                     NavHostFragment.findNavController(Fragment_FlashCardList.this)
                             .navigate(R.id.action_fragment_FlashCardList_to_fragment_FlashCardVertical, b);
+                }
+            });
+
+            cardView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    PopupMenu menu = new PopupMenu(getContext(), v);
+                    menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            switch (item.getItemId()) {
+                                case R.id.action_edit:
+                                    Bundle b = new Bundle();
+                                    b.putSerializable("Card", card);
+                                    NavHostFragment.findNavController(Fragment_FlashCardList.this)
+                                            .navigate(R.id.action_fragment_FlashCardList_to_fragment_CreateFlashCard, b);
+                                    return true;
+                                case R.id.action_delete:
+                                    String hash = card.getHash();
+                                    File file = new File(folder, hash + ".ser");
+                                    Toast.makeText(getContext(), R.string.file_deleted,
+                                            Toast.LENGTH_SHORT).show();
+                                    file.delete();
+                                    ((ViewManager)v.getParent()).removeView(v);
+                                    return true;
+                                default:
+                                    return false;
+                            }
+                        }
+                    });
+                    menu.inflate(R.menu.menu_hold_card);
+                    menu.show();
+                    return true;
                 }
             });
 

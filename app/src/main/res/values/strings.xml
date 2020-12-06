@@ -39,5 +39,8 @@
     <string name="tag_create_hint">Enter the tag name here.</string>
     <string name="quiz_name">Enter quiz name here.</string>
     <string name="num_quest">Select the number of questions you would like to see.</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="file_deleted">File deleted.</string>
 
 </resources>

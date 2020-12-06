@@ -23,6 +23,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -97,6 +98,28 @@ public class Fragment_CreateFlashCard extends Fragment {
             }
         }
 
+        Bundle b = getArguments();
+        FlashCard card;
+        try {
+            card = (FlashCard) b.getSerializable("Card");
+        } catch (NullPointerException e) {
+            card = null;
+        }
+
+        File cardFolder = new File(getContext().getFilesDir(), "flashcards");
+        File t = null;
+
+        if (card != null) { // If we're editing a card and not creating one.
+            String hash = card.getHash();
+            t = new File(cardFolder, hash + ".ser");
+            qText.setText(card.getQuestion());
+            aText.setText(card.getAnswer());
+            hText.setText(card.getHint());
+        }
+        // The t variable  is used to make the currentFile variable effectively final,
+        // which is needed in order to be used in the onClick method.
+        File currentFile = t;
+
         view.findViewById(R.id.createflashcard_save).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,8 +140,11 @@ public class Fragment_CreateFlashCard extends Fragment {
                 } else {
 
                     FlashCard card = new FlashCard(question, answer, hint, wrongAnswers, tags);
-                    File cardFolder = new File(getContext().getFilesDir(), "flashcards");
                     card.exportFlash(cardFolder);
+
+                    if (currentFile != null) {
+                        currentFile.delete();
+                    }
 
                     Bundle b = new Bundle();
                     b.putSerializable("Card", card);

@@ -437,11 +437,12 @@ public class FlashCard implements Serializable
   }
 
   /**
-   * Exports the FlashCard to a file.
+   * Calculated an MD5 hash based off the contents of the class.
+   * Used to name the resulting file.
    *
+   * @return A String with the MD5 hash.
    */
-  public void exportFlash(File cardFolder) {
-
+  public String getHash() {
     String s = "";
     try {
       String hashString = this.toString();
@@ -456,7 +457,16 @@ public class FlashCard implements Serializable
     } catch (NoSuchAlgorithmException e) {
 
     }
+    return s;
+  }
 
+  /**
+   * Exports the FlashCard to a file.
+   *
+   */
+  public void exportFlash(File cardFolder) {
+
+    String s = getHash();
     try {
       File loc = new File(cardFolder, s + ".ser");
       FileOutputStream fileOut = new FileOutputStream(loc);
@@ -497,8 +507,7 @@ public class FlashCard implements Serializable
    */
   public String toString()
   {
-    return super.toString() + "["+
-            "question" + ":" + getQuestion()+ "," +
+    return "[question" + ":" + getQuestion()+ "," +
             "answer" + ":" + getAnswer()+ "," +
             "See all the tags" + ":" + getTags()+ "," +
             "Open Quizzes" + ":" + getQuizzes() + "," +

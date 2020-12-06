@@ -259,8 +259,7 @@ public class Tag implements Serializable
    */
   public String toString()
   {
-    return super.toString() + "["+
-            "name" + ":" + getName()+ "]";
+    return "[name" + ":" + getName()+ "]";
   }
 
   /**

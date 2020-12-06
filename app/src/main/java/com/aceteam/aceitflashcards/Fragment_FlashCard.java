@@ -1,11 +1,11 @@
 package com.aceteam.aceitflashcards;
 
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -15,6 +15,7 @@ import androidx.navigation.fragment.NavHostFragment;
 public class Fragment_FlashCard extends Fragment {
 
     boolean showQ = true;
+
 
     @Override
     public View onCreateView(
@@ -33,6 +34,12 @@ public class Fragment_FlashCard extends Fragment {
             public void onClick(View view) {
                 NavHostFragment.findNavController(Fragment_FlashCard.this)
                         .navigate(R.id.action_fragment_FlashCardVertical_to_fragment_FlashCardList);
+            }
+        });
+        view.findViewById(R.id.flashcard_hint).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(this, "Hint: ",Toast.LENGTH_SHORT).show();
             }
         });
 

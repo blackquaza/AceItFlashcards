@@ -34,7 +34,6 @@ public class FlashCard implements Serializable
   private String question;
   private String answer;
   private String hint;
-  private Set<String> wrongAnswers;
   private Set<Tag> tags;
   private Set<Quiz> quizzes;
   private final Object FileOutputStream;{FileOutputStream = null;}
@@ -62,7 +61,6 @@ public class FlashCard implements Serializable
     question = aQuestion;
     answer = aAnswer;
     hint = aHint;
-    wrongAnswers = aWrongAnswers;
     tags = aTags;
     quizzes = new HashSet<>();
     flashCard = null;
@@ -123,34 +121,6 @@ public class FlashCard implements Serializable
   }
 
   /**
-   * Adds a wrong answer to the FlashCard.
-   * 
-   * @param aWrongAnswer A wrong answer to add to the FlashCard.
-   * 
-   * @return True if the wrong answer was set; False otherwise.
-   */
-  public boolean addWrongAnswer(String aWrongAnswer)
-  {
-    boolean wasAdded;
-    wasAdded = wrongAnswers.add(aWrongAnswer);
-    return wasAdded;
-  }
-
-  /**
-   * Removes a wrong answer from the FlashCard.
-   * 
-   * @param aWrongAnswer The wrong answer to remove from the FlashCard.
-   * 
-   * @return True if the wrong answer was removed; False otherwise.
-   */
-  public boolean removeWrongAnswer(String aWrongAnswer)
-  {
-    boolean wasRemoved;
-    wasRemoved = wrongAnswers.remove(aWrongAnswer);
-    return wasRemoved;
-  }
-
-  /**
    * Gets the question.
    * 
    * @return a String representing the question.
@@ -178,55 +148,6 @@ public class FlashCard implements Serializable
   public String getHint()
   {
     return hint;
-  }
-
-  /**
-   * Gets all of the wrong answers.
-   * 
-   * @return A Set of Strings containing all the wrong answers.
-   */
-  public Set<String> getWrongAnswers()
-  {
-    Set<String> newWrongAnswers = Collections.unmodifiableSet(wrongAnswers);
-    return newWrongAnswers;
-  }
-
-  /**
-   * Provides the number of wrong answers.
-   * 
-   * @return An integer containing the number of wrong answers.
-   */
-  public int numberOfWrongAnswers()
-  {
-    int number = wrongAnswers.size();
-    return number;
-  }
-
-  /**
-   * Checks if there are currently any wrong answers.
-   * 
-   * @return True if there are one or more wrong answers. False otherwise.
-   */
-  public boolean hasWrongAnswers()
-  {
-    boolean has;
-    if (has = wrongAnswers.size() > 0) {
-      has = true;
-    }
-    return has;
-  }
-
-  /**
-   * Checks if there is a specific wrong answer.
-   * 
-   * @param aWrongAnswer A string with a wrong answer to look for.
-   * 
-   * @return True of the provided wrong answer is present. False otherwise.
-   */
-  public boolean hasWrongAnswer(String aWrongAnswer)
-  {
-    boolean has = wrongAnswers.contains(aWrongAnswer);
-    return has;
   }
 
   /**

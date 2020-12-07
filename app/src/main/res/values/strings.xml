@@ -41,6 +41,8 @@
     <string name="num_quest">Select the number of questions you would like to see.</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
-    <string name="file_deleted">File deleted.</string>
+    <string name="flashcard_deleted">Flashcard deleted.</string>
+    <string name="tag_deleted">Tag deleted.</string>
+    <string name="quiz_deleted">Quiz deleted.</string>
 
 </resources>

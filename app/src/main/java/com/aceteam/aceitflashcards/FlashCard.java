@@ -243,6 +243,25 @@ public class FlashCard implements Serializable
     return false;
   }
 
+  /**
+   * Finds a tag by name.
+   *
+   * @param tagName The name of the tag to look for.
+   *
+   * @return The tag if found. Null otherwise.
+   *
+   * @see Tag
+   */
+  public Tag findTagbyName(String tagName)
+  {
+    for (Tag tag : tags) {
+      if (tag.getName().equalsIgnoreCase(tagName)) {
+        return tag;
+      }
+    }
+    return null;
+  }
+
     /**
    * Gets all of the Quizzes.
    * 
@@ -430,8 +449,6 @@ public class FlashCard implements Serializable
   {
     return "[question" + ":" + getQuestion()+ "," +
             "answer" + ":" + getAnswer()+ "," +
-            "See all the tags" + ":" + getTags()+ "," +
-            "Open Quizzes" + ":" + getQuizzes() + "," +
             "hint" + ":" + getHint()+ "]";
   }
 }

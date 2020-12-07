@@ -6,12 +6,16 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewManager;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.Space;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -109,6 +113,38 @@ public class Fragment_TagList extends Fragment {
                     // TODO: Code an edit screen?
                     //NavHostFragment.findNavController(Fragment_TagList.this)
                     //        .navigate(R.id.action_fragment_FlashCardList_to_fragment_FlashCardVertical, b);
+                }
+            });
+
+            cardView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    PopupMenu menu = new PopupMenu(getContext(), v);
+                    menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            switch (item.getItemId()) {
+                                case R.id.action_edit:
+                                    Bundle b = new Bundle();
+                                    b.putSerializable("Tag", tag);
+                                    NavHostFragment.findNavController(Fragment_TagList.this)
+                                            .navigate(R.id.action_fragment_TagList_to_fragment_CreateTag, b);
+                                    return true;
+                                case R.id.action_delete:
+                                    File file = new File(folder, tag.getName() + ".ser");
+                                    Toast.makeText(getContext(), R.string.tag_deleted,
+                                            Toast.LENGTH_SHORT).show();
+                                    file.delete();
+                                    ((ViewManager)v.getParent()).removeView(v);
+                                    return true;
+                                default:
+                                    return false;
+                            }
+                        }
+                    });
+                    menu.inflate(R.menu.menu_hold_card);
+                    menu.show();
+                    return true;
                 }
             });
 

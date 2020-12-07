@@ -227,6 +227,11 @@ public class Fragment_CreateFlashCard extends Fragment {
                     }
 
                     FlashCard card = new FlashCard(question, answer, hint, wrongAnswers, tags);
+
+                    File tagFolder = new File(getContext().getFilesDir(), "tags");
+                    for (Tag tag : card.getTags()) {
+                        tag.addFlashCard(card);
+                    }
                     card.exportFlash(cardFolder);
 
                     Bundle b = new Bundle();

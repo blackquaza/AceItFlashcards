@@ -179,7 +179,7 @@ public class Fragment_FlashCardList extends Fragment {
                                 case R.id.action_delete:
                                     String hash = card.getHash();
                                     File file = new File(folder, hash + ".ser");
-                                    Toast.makeText(getContext(), R.string.file_deleted,
+                                    Toast.makeText(getContext(), R.string.flashcard_deleted,
                                             Toast.LENGTH_SHORT).show();
                                     file.delete();
                                     ((ViewManager)v.getParent()).removeView(v);

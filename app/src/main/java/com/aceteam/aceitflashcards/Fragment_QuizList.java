@@ -7,6 +7,7 @@ import android.graphics.Point;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.Space;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -167,5 +169,10 @@ public class Fragment_QuizList  extends Fragment{
             layout.addView(cardView);
 
         }
+        Space space = new Space(getContext());
+        int px = (int) Math.floor(TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 75, getResources().getDisplayMetrics()));
+        space.setMinimumHeight(px);
+        layout.addView(space);
     }
 }

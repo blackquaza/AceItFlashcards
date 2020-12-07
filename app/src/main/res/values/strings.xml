@@ -35,6 +35,8 @@
     <string name="answer_needed">Please enter an answer.</string>
     <string name="quiz_select">Please select the flashcards for the quiz.</string>
     <string name="no_tags">You haven\'t made any tags.</string>
+    <string name="no_quiz_name">Please enter a name for the quiz.</string>
+    <string name="no_cards">Your quiz does not have any flashcards.</string>
     <string name="name_tag">Create Tag</string>
     <string name="tag_create_hint">Enter the tag name here.</string>
     <string name="quiz_name">Enter quiz name here.</string>
@@ -44,5 +46,6 @@
     <string name="flashcard_deleted">Flashcard deleted.</string>
     <string name="tag_deleted">Tag deleted.</string>
     <string name="quiz_deleted">Quiz deleted.</string>
+
 
 </resources>

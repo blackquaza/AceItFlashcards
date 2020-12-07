@@ -164,6 +164,7 @@ public class Fragment_CreateFlashCard extends Fragment {
         } catch (NullPointerException e) {
             card = null;
         }
+        FlashCard oldCard = card;
 
         File cardFolder = new File(getContext().getFilesDir(), "flashcards");
         File t = null;
@@ -231,6 +232,17 @@ public class Fragment_CreateFlashCard extends Fragment {
                     File tagFolder = new File(getContext().getFilesDir(), "tags");
                     for (Tag tag : card.getTags()) {
                         tag.addFlashCard(card);
+                    }
+                    File quizFolder = new File(getContext().getFilesDir(), "quizzes");
+                    for (File quizFile : quizFolder.listFiles()) {
+                        Quiz quiz = Quiz.importQuiz(quizFile);
+                        for (FlashCard qcard : quiz.getFlashCards()) {
+                            if (qcard.getHash().equalsIgnoreCase(oldCard.getHash())) {
+                                quiz.removeFlashCard(qcard);
+                                quiz.addFlashCard(card);
+                            }
+                        }
+                        quiz.exportQuiz(quizFolder);
                     }
                     card.exportFlash(cardFolder);
 

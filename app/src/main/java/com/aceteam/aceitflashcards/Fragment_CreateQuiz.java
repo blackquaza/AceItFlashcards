@@ -76,10 +76,18 @@ public class Fragment_CreateQuiz extends Fragment {
             public void onClick(View view) {
                 Set<FlashCard> quizset = new HashSet<>(quizlist);
                 String name = qText.getText().toString().trim();
+
+                if (name.isEmpty()) {
+                    Toast.makeText(getContext(), R.string.no_quiz_name, Toast.LENGTH_SHORT).show();
+                    return;
+                } else if (quizset.isEmpty()) {
+                    Toast.makeText(getContext(), R.string.no_cards, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 Quiz qzz = new Quiz(name, 5, quizset);
                 File quizfolder = new File(getContext().getFilesDir(), "quizzes");
-
-                    qzz.exportQuiz(quizfolder);
+                qzz.exportQuiz(quizfolder);
 
                 NavHostFragment.findNavController(Fragment_CreateQuiz.this)
                         .navigate(R.id.action_fragment_CreateQuiz_to_fragment_Quizlist);

@@ -52,7 +52,7 @@ public class Fragment_QuizFlashCardList extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                view.findViewById(R.id.flashcardlist_back).performClick();
+                view.findViewById(R.id.quizflashcardlist_back).performClick();
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
@@ -77,6 +77,8 @@ public class Fragment_QuizFlashCardList extends Fragment {
             cardList.add(FlashCard.importFlash(cardFile));
 
         }
+
+
 
         LinearLayout layout = view.findViewById(R.id.quizflashcardlist_cardlayout);
 

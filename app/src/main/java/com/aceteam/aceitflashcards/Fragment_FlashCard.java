@@ -62,16 +62,15 @@ public class Fragment_FlashCard extends Fragment {
         // which is needed in order to be used in the onClick method.
         FlashCard card = t;
 
-        //String Hint = view.findViewById(R.id.flashcard_hint);
+        String Hint =  (card.getHint());
+        if(Hint.trim().length() > 0){
         view.findViewById(R.id.flashcard_hint).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-
-               String Hint =  (card.getHint());
                 Toast.makeText(getContext(),"Hint: "+Hint,Toast.LENGTH_SHORT).show();
             }
-        });
+        });}
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override

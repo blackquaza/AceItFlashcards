@@ -56,7 +56,6 @@ public class Fragment_CreateQuiz extends Fragment {
 
         EditText qText = getActivity().findViewById(R.id.quiz_name);
         List<FlashCard> quizlist = new ArrayList<>();
-        Set<FlashCard> quizset = new HashSet<>(quizlist);
 
 
         view.findViewById(R.id.createquiz_back).setOnClickListener(new View.OnClickListener() {
@@ -84,8 +83,7 @@ public class Fragment_CreateQuiz extends Fragment {
 
         });
 
-        EditText textbox = getActivity().findViewById(R.id.quiz_name);
-        textbox.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        qText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {

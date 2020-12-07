@@ -5,6 +5,7 @@
     android:id="@+id/createQuiz_name"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusableInTouchMode="false"
     tools:context=".Fragment_CreateQuiz">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -37,12 +38,17 @@
         android:id="@+id/createquiz_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clickable="false"
+        android:focusableInTouchMode="false"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
             android:id="@+id/createquiz_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:orientation="vertical">
 
             <TextView

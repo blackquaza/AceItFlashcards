@@ -7,10 +7,13 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewManager;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -115,6 +118,40 @@ public class Fragment_QuizList  extends Fragment{
                     b.putSerializable("Card", card);
                     NavHostFragment.findNavController(Fragment_QuizList.this)
                             .navigate(R.id.action_fragment_Quizlist_to_fragment_quiz_flashcard_list, b);
+                }
+            });
+
+
+            cardView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    PopupMenu menu = new PopupMenu(getContext(), v);
+                    menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            switch (item.getItemId()) {
+//                                case R.id.action_edit:
+//                                    Bundle b = new Bundle();
+//                                    b.putSerializable("Card", card);
+//                                    NavHostFragment.findNavController(Fragment_QuizList.this)
+//                                            .navigate(R.id.action_fragment_FlashCardList_to_fragment_CreateFlashCard, b);
+//                                    return true;
+                                case R.id.action_delete:
+                                    String hash = card.getHash();
+                                    File file = new File(folder, hash + ".ser");
+                                    Toast.makeText(getContext(), R.string.file_deleted,
+                                            Toast.LENGTH_SHORT).show();
+                                    file.delete();
+                                    ((ViewManager)v.getParent()).removeView(v);
+                                    return true;
+                                default:
+                                    return false;
+                            }
+                        }
+                    });
+                    menu.inflate(R.menu.menu_hold_card);
+                    menu.show();
+                    return true;
                 }
             });
 

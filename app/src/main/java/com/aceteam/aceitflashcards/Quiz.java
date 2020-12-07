@@ -208,6 +208,24 @@ public class Quiz implements Serializable
   }
 
 
+  public String getHash() {
+    String s = "";
+    try {
+      String hashString = this.toString();
+      byte[] fcName = hashString.getBytes("UTF-8");
+      MessageDigest md =  MessageDigest.getInstance("MD5");
+      byte[] digest = md.digest(fcName);
+
+      BigInteger b = new BigInteger(1, digest);
+      s = String.format("%1$032X", b);
+    } catch (UnsupportedEncodingException e) {
+
+    } catch (NoSuchAlgorithmException e) {
+
+    }
+    return s;
+  }
+
   /**
    * Adds a FlashCard to this Quiz.
    * 

@@ -4,10 +4,15 @@ import android.app.Activity;
 import android.hardware.input.InputManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewManager;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,11 +25,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -67,6 +75,7 @@ public class Fragment_CreateFlashCard extends Fragment {
         EditText qText = getActivity().findViewById(R.id.createflashcard_questioninput);
         EditText aText = getActivity().findViewById(R.id.createflashcard_answerinput);
         EditText hText = getActivity().findViewById(R.id.createflashcard_hintinput);
+        AutoCompleteTextView tText = view.findViewById(R.id.createflashcard_taginput);
 
         List<EditText> editTextList = new ArrayList<EditText>();
         editTextList.add(qText);
@@ -85,6 +94,8 @@ public class Fragment_CreateFlashCard extends Fragment {
         }
 
         File tagFolder = new File(getContext().getFilesDir(), "tags");
+        ChipGroup group = view.findViewById(R.id.createflashcard_taginc);
+        HashMap<String, Tag> tagMap = new HashMap<>();
 
         if (tagFolder.listFiles().length == 0) {
             TextView t = new TextView(getContext());
@@ -92,11 +103,59 @@ public class Fragment_CreateFlashCard extends Fragment {
             t.setPadding(20,20,20,20);
             LinearLayout l = view.findViewById(R.id.createflashcard_layout);
             l.addView(t, 7);
+            l.removeView(tText);
         } else {
             for (File f : tagFolder.listFiles()) {
-                // TODO: Code this.
+                Tag tag = Tag.importTag(f);
+                tagMap.put(tag.getName(), tag);
             }
         }
+
+        ArrayList<String> tagList = new ArrayList<String>(tagMap.keySet());
+        ArrayAdapter<String> autofill = new ArrayAdapter<String>(
+                getContext(), android.R.layout.simple_list_item_1, tagList);
+        tText.setAdapter(autofill);
+
+        tText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
+                    for (String test : tagList) {
+                        String s = v.getText().toString().trim();
+                        if (s.equalsIgnoreCase(test)) {
+                            Chip c = new Chip(getContext());
+                            c.setText(s);
+                            c.setCloseIconResource(android.R.drawable.ic_delete);
+                            c.setCloseIconVisible(true);
+
+                            c.setOnCloseIconClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    tagList.add(test);
+                                    ((ViewManager)c.getParent()).removeView(c);
+                                }
+                            });
+
+                            group.addView(c);
+                            tagList.remove(test);
+                            break;
+                        }
+                    }
+                }
+                tText.setText("");
+                return false;
+            }
+        });
+
+        tText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                    tText.setText("");
+                }
+            }
+        });
 
         Bundle b = getArguments();
         FlashCard card;
@@ -115,6 +174,23 @@ public class Fragment_CreateFlashCard extends Fragment {
             qText.setText(card.getQuestion());
             aText.setText(card.getAnswer());
             hText.setText(card.getHint());
+            for (Tag tag : card.getTags()) {
+                Chip c = new Chip(getContext());
+                c.setText(tag.getName());
+                c.setCloseIconResource(android.R.drawable.ic_delete);
+                c.setCloseIconVisible(true);
+
+                c.setOnCloseIconClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        tagList.add(tag.getName());
+                        ((ViewManager)c.getParent()).removeView(c);
+                    }
+                });
+
+                group.addView(c);
+                tagList.remove(tag.getName());
+            }
         }
         // The t variable  is used to make the currentFile variable effectively final,
         // which is needed in order to be used in the onClick method.
@@ -124,12 +200,19 @@ public class Fragment_CreateFlashCard extends Fragment {
             @Override
             public void onClick(View view) {
 
-
                 String question = qText.getText().toString().trim();
                 String answer = aText.getText().toString().trim();
                 String hint = hText.getText().toString().trim();
                 Set<String> wrongAnswers = new HashSet<String>();
                 Set<Tag> tags = new HashSet<Tag>();
+
+                for (int i = 0; i < group.getChildCount(); i++) {
+                    Chip c = (Chip) group.getChildAt(i);
+                    Tag tag = tagMap.get(c.getText());
+                    if (tag != null) {
+                        tags.add(tag);
+                    }
+                }
 
                 if (question.isEmpty()) {
                     String e = getResources().getString(R.string.question_needed);

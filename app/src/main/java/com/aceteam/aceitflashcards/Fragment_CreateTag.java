@@ -111,15 +111,17 @@ public class Fragment_CreateTag extends Fragment {
                     }
 
                     Tag tag = new Tag(name);
-                    File cardFolder = new File(getContext().getFilesDir(), "flashcards");
-                    for (File cardFile : cardFolder.listFiles()) {
-                        FlashCard card = FlashCard.importFlash(cardFile);
-                        for (Tag cardTag : card.getTags()) {
-                            if (cardTag.getName().equalsIgnoreCase(oldTag.getName())) {
-                                card.removeTag(card.findTagbyName(oldTag.getName()));
-                                card.addTag(tag);
-                                tag.addFlashCard(card);
-                                card.exportFlash(cardFolder);
+                    if (oldTag != null) {
+                        File cardFolder = new File(getContext().getFilesDir(), "flashcards");
+                        for (File cardFile : cardFolder.listFiles()) {
+                            FlashCard card = FlashCard.importFlash(cardFile);
+                            for (Tag cardTag : card.getTags()) {
+                                if (cardTag.getName().equalsIgnoreCase(oldTag.getName())) {
+                                    card.removeTag(card.findTagbyName(oldTag.getName()));
+                                    card.addTag(tag);
+                                    tag.addFlashCard(card);
+                                    card.exportFlash(cardFolder);
+                                }
                             }
                         }
                     }

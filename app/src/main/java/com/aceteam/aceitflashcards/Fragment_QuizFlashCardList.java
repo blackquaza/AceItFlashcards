@@ -114,6 +114,7 @@ public class Fragment_QuizFlashCardList extends Fragment {
 
                     Bundle b = new Bundle();
                     b.putSerializable("Card", card);
+                    b.putSerializable("Quiz", qq);
 
                     NavHostFragment.findNavController(Fragment_QuizFlashCardList.this)
                             .navigate(R.id.action_fragment_quiz_flashcard_list_to_fragment_FlashCardVertical, b);

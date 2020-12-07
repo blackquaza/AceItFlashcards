@@ -28,16 +28,30 @@ public class Fragment_FlashCard extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        Bundle b = getArguments();
         view.findViewById(R.id.flashcard_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Quiz q;
+                try {
+                    q = (Quiz) b.getSerializable("Quiz");
+                } catch (NullPointerException e) {
+                    q = null;
+                }
+                if (q == null){
                 NavHostFragment.findNavController(Fragment_FlashCard.this)
                         .navigate(R.id.action_fragment_FlashCardVertical_to_fragment_FlashCardList);
+                     }
+                else{
+                    Bundle b = new Bundle();
+                    b.putSerializable("Card", q);
+                    NavHostFragment.findNavController(Fragment_FlashCard.this)
+                            .navigate(R.id.action_fragment_FlashCardVertical_to_fragment_quiz_flashcard_list,b);
+                }
             }
         });
 
-        Bundle b = getArguments();
+
         FlashCard t;
         try {
             t = (FlashCard) b.getSerializable("Card");

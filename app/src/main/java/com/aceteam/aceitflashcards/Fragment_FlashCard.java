@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewManager;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,15 +65,18 @@ public class Fragment_FlashCard extends Fragment {
         FlashCard card = t;
 
         String Hint =  (card.getHint());
+        Button hintButton = view.findViewById(R.id.flashcard_hint);
         if(Hint.trim().length() > 0){
-        view.findViewById(R.id.flashcard_hint).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            hintButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                Toast.makeText(getContext(),"Hint: "+Hint,Toast.LENGTH_SHORT).show();
-            }
-        });}
-        else{view.findViewById(R.id.flashcard_hint).setEnabled(false);}
+                    Toast.makeText(getContext(),"Hint: "+Hint,Toast.LENGTH_SHORT).show();
+                }
+            });}
+        else{
+            ((ViewManager)hintButton.getParent()).removeView(hintButton);
+        }
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override

@@ -71,6 +71,7 @@ public class Fragment_FlashCard extends Fragment {
                 Toast.makeText(getContext(),"Hint: "+Hint,Toast.LENGTH_SHORT).show();
             }
         });}
+        else{view.findViewById(R.id.flashcard_hint).setEnabled(false);}
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override

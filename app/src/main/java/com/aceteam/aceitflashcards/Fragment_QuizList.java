@@ -1,5 +1,6 @@
 package com.aceteam.aceitflashcards;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -12,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewManager;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -71,6 +74,10 @@ public class Fragment_QuizList  extends Fragment{
                 view.findViewById(R.id.quizlist_back2 ).performClick();
             }
         };
+
+
+
+
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
 
         List<Quiz> cardList = new ArrayList<>();
@@ -130,12 +137,12 @@ public class Fragment_QuizList  extends Fragment{
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
                             switch (item.getItemId()) {
-//                                case R.id.action_edit:
-//                                    Bundle b = new Bundle();
-//                                    b.putSerializable("Card", card);
-//                                    NavHostFragment.findNavController(Fragment_QuizList.this)
-//                                            .navigate(R.id.action_fragment_FlashCardList_to_fragment_CreateFlashCard, b);
-//                                    return true;
+                                case R.id.action_edit:
+                                    Bundle b = new Bundle();
+                                    b.putSerializable("Card", card);
+                                    NavHostFragment.findNavController(Fragment_QuizList.this)
+                                            .navigate(R.id.action_fragment_Quizlist_to_fragment_CreateQuiz, b);
+                                    return true;
                                 case R.id.action_delete:
                                     String hash = card.getHash();
                                     File file = new File(folder, hash + ".ser");

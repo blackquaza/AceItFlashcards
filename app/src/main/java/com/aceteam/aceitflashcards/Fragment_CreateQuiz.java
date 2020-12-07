@@ -21,10 +21,14 @@ import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -161,17 +165,55 @@ public class Fragment_CreateQuiz extends Fragment {
         );
         p.setMargins(10, 10, 10, 10);
 
+        ConstraintLayout.LayoutParams cp = new ConstraintLayout.LayoutParams(
+                ConstraintLayout.LayoutParams.MATCH_PARENT,
+                ConstraintLayout.LayoutParams.MATCH_PARENT
+        );
+
         for (FlashCard card : cardList) {
             if (card == null) continue;
-            TextView text = new TextView(getContext());
-            text.setText(card.getQuestion());
-            text.setPadding(10, 10, 10, 10);
+
+            ConstraintLayout cl = new ConstraintLayout(getContext());
+            cl.setId(View.generateViewId());
 
             MaterialCardView cardView = new MaterialCardView(getContext());
+            cardView.setId(View.generateViewId());
             cardView.setStrokeColor(Color.BLACK);
             cardView.setStrokeWidth(1);
             cardView.setRadius(10);
             cardView.setLayoutParams(p);
+
+            cardView.addView(cl);
+            layout.addView(cardView);
+
+            TextView text = new TextView(getContext());
+            text.setId(View.generateViewId());
+            text.setText(card.getQuestion());
+            text.setPadding(10, 10, 10, 10);
+
+            ChipGroup cg = new ChipGroup(getContext());
+            cg.setId(View.generateViewId());
+
+            cl.addView(cg);
+            cl.addView(text);
+
+            ConstraintSet cs = new ConstraintSet();
+            cs.clone(cl);
+
+            cs.connect(cg.getId(), ConstraintSet.BOTTOM, cl.getId(), ConstraintSet.BOTTOM, 20);
+            cs.connect(cg.getId(), ConstraintSet.LEFT, cl.getId(), ConstraintSet.LEFT, 20);
+            cs.connect(text.getId(), ConstraintSet.BOTTOM, cl.getId(), ConstraintSet.BOTTOM);
+            cs.connect(text.getId(), ConstraintSet.LEFT, cl.getId(), ConstraintSet.LEFT);
+            cs.connect(text.getId(), ConstraintSet.TOP, cl.getId(), ConstraintSet.TOP);
+            cs.connect(text.getId(), ConstraintSet.RIGHT, cl.getId(), ConstraintSet.RIGHT);
+            cs.applyTo(cl);
+
+
+            for (Tag tag : card.getTags()) {
+                Chip c = new Chip(getContext());
+                c.setText(tag.getName());
+                cg.addView(c);
+            }
 
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -198,10 +240,6 @@ public class Fragment_CreateQuiz extends Fragment {
                         }
                 }
             });
-
-            cardView.addView(text);
-            layout.addView(cardView);
-
         }
 
         Space space = new Space(getContext());

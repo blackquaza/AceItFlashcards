@@ -222,12 +222,12 @@ public class Fragment_CreateFlashCard extends Fragment {
                     Toast.makeText(getContext(), e, Toast.LENGTH_SHORT).show();
                 } else {
 
-                    FlashCard card = new FlashCard(question, answer, hint, wrongAnswers, tags);
-                    card.exportFlash(cardFolder);
-
                     if (currentFile != null) {
                         currentFile.delete();
                     }
+
+                    FlashCard card = new FlashCard(question, answer, hint, wrongAnswers, tags);
+                    card.exportFlash(cardFolder);
 
                     Bundle b = new Bundle();
                     b.putSerializable("Card", card);

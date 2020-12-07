@@ -51,11 +51,26 @@ public class Fragment_FlashCardList extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        Bundle b = getArguments();
+        String t;
+        try {
+            Tag temp = (Tag) b.getSerializable("Tag");
+            t = temp.getName();
+        } catch (NullPointerException e) {
+            t = null;
+        }
+        String tagFilter = t;
+
         view.findViewById(R.id.flashcardlist_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(Fragment_FlashCardList.this)
-                        .navigate(R.id.action_fragment_FlashCardList_to_fragment_MainMenu);
+                if (tagFilter == null) {
+                    NavHostFragment.findNavController(Fragment_FlashCardList.this)
+                            .navigate(R.id.action_fragment_FlashCardList_to_fragment_MainMenu);
+                } else {
+                    NavHostFragment.findNavController(Fragment_FlashCardList.this)
+                            .navigate(R.id.action_fragment_FlashCardList_to_fragment_TagList);
+                }
             }
         });
 
@@ -107,6 +122,11 @@ public class Fragment_FlashCardList extends Fragment {
 
         for (FlashCard card : cardList) {
             if (card == null) continue;
+            List<String> tagList= new ArrayList<String>();
+            for (Tag tag : card.getTags()) {
+                tagList.add(tag.getName());
+            }
+            if (tagFilter != null && !tagList.contains(tagFilter)) continue;
 
             ConstraintLayout cl = new ConstraintLayout(getContext());
             cl.setId(View.generateViewId());

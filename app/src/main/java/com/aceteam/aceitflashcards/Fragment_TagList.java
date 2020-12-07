@@ -110,9 +110,8 @@ public class Fragment_TagList extends Fragment {
                     Bundle b = new Bundle();
                     b.putSerializable("Tag", tag);
 
-                    // TODO: Code an edit screen?
-                    //NavHostFragment.findNavController(Fragment_TagList.this)
-                    //        .navigate(R.id.action_fragment_FlashCardList_to_fragment_FlashCardVertical, b);
+                    NavHostFragment.findNavController(Fragment_TagList.this)
+                            .navigate(R.id.action_fragment_TagList_to_fragment_FlashCardList, b);
                 }
             });
 

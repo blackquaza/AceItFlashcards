@@ -237,11 +237,19 @@ public class Fragment_CreateFlashCard extends Fragment {
                         File quizFolder = new File(getContext().getFilesDir(), "quizzes");
                         for (File quizFile : quizFolder.listFiles()) {
                             Quiz quiz = Quiz.importQuiz(quizFile);
+                            Set<FlashCard> toAdd = new HashSet<FlashCard>();
+                            Set<FlashCard> toRemove = new HashSet<FlashCard>();
                             for (FlashCard qcard : quiz.getFlashCards()) {
                                 if (qcard.getHash().equalsIgnoreCase(oldCard.getHash())) {
-                                    quiz.removeFlashCard(qcard);
-                                    quiz.addFlashCard(card);
+                                    toRemove.add(qcard);
+                                    toAdd.add(card);
                                 }
+                            }
+                            for (FlashCard qcard : toRemove) {
+                                quiz.removeFlashCard(qcard);
+                            }
+                            for (FlashCard qcard : toAdd) {
+                                quiz.addFlashCard(qcard);
                             }
                             quiz.exportQuiz(quizFolder);
                         }
